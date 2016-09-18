@@ -4,70 +4,9 @@
 #include <physics>
 #include <audio>
 
-#define ENUM_WARP 3
-enum WARP{
-   bool:CHECK,
-   bool:INCAR,
-   CARID
-}
-new WarpDTO[MAX_PLAYERS][WARP];
 
-/*
-CREATE TABLE BOARD_TABLE(
-ID INT PRIMARY KEY AUTO_INCREMENT,
-TITLE VARCHAR(255) NOT NULL,
-description text NULL,
-created datetime NOT NULL
-*/
-/*
-CREATE TABLE DMSERVER_TABLE(
-ID INT PRIMARY KEY AUTO_INCREMENT,
-NAME VARCHAR(24) NOT NULL,
-PASS VARCHAR(24) NOT NULL,
-USERIP VARCHAR(16) NOT NULL,
-ADMIN INT(1) NOT NULL,
-TEAM INT(2) NOT NULL,
-MONEY INT(10) NOT NULL,
-LEVEL INT(3) NOT NULL,
-EXP INT(3) NOT NULL,
-KILLS INT(5) NOT NULL,
-DEATHS INT(5) NOT NULL,
-SKIN INT(5) NOT NULL,
-WEP1 INT(2) NOT NULL,
-AMMO1 INT(4) NOT NULL,
-INTERIOR INT(2) NOT NULL,
-WORLD INT(1) NOT NULL,
-POS_X DECIMAL (10,5) NOT NULL,
-POS_Y DECIMAL (10,5) NOT NULL,
-POS_Z DECIMAL (10,5) NOT NULL,
-ANGLE DECIMAL (10,5) NOT NULL,
-HP DECIMAL (3,0) NOT NULL,
-AM DECIMAL (3,0) NOT NULL
-) ENGINE=INNODB;
-
-*/
-
-/*
-CREATE TABLE POKETMON_TABLE(
-ID INT PRIMARY KEY AUTO_INCREMENT,
-NAME VARCHAR(24) NOT NULL,
-TYPE INT(3) NOT NULL,
-MONNAME VARCHAR(24) NOT NULL,
-CP INT(4) NOT NULL,
-HEALTH INT(3) NOT NULL,
-THIRST INT(3) NOT NULL,
-HUNGER INT(3) NOT NULL,
-TIRED INT(3) NOT NULL,
-CLEAN INT(3) NOT NULL,
-FUNNY INT(3) NOT NULL
-) ENGINE=INNODB;
-
-*/
 main(){}
-new missonTick=0;
-new Text:TD_iPhone[2];
-//new FALSE = false;
-//#define SendFormatMsg(%0,%1,%2) do{new _str[128];format(_str,128,%2);SendClientMessage(%0,%1,_str);}while(FALSE)
+
 #define d_Reg    	 	 1
 #define d_Log    	 	 2
 #define poketmon_Bag 	 3
@@ -176,6 +115,8 @@ new CountDTO[MAX_PLAYERS][COUNT];
 #define RELEASED(%0) \
 	(((newkeys & (%0)) != (%0)) && ((oldkeys & (%0)) == (%0)))
 
+new missonTick=0;
+new Text:TD_iPhone[2];
 new poketmonType;
 new poketmonCP;
 new ballPickup;
@@ -183,6 +124,13 @@ new Float:ballPos[2];
 new zonePoketmon[932];
 new bool:isShotBall=false;
 
+#define ENUM_WARP 3
+enum WARP{
+   bool:CHECK,
+   bool:INCAR,
+   CARID
+}
+new WarpDTO[MAX_PLAYERS][WARP];
 
 enum td_ball
 {
@@ -193,34 +141,34 @@ new TextDrawBall[USED_BALL][td_ball];
 
 new carModelNum[8]={510,468,522,496,562,541,487,519};
 new carName[8][20]={
-	"»ê¾ÇÀÚÀü°Å",
-	"»êÃ¼½º",
-	"NRG ¹ÙÀÌÅ©",
-	"ºí¸®½ºÅ¸ ÄÄÆÑÆ®",
-	"¿¤¸®Áö",
-	"ºæ·¿",
-	"¸Å¹ö¸¯ Çì¸®ÄßÅÍ",
-	"»ş¸á ºñÇà±â"
+	"ì‚°ì•…ìì „ê±°",
+	"ì‚°ì²´ìŠ¤",
+	"NRG ë°”ì´í¬",
+	"ë¸”ë¦¬ìŠ¤íƒ€ ì»´íŒ©íŠ¸",
+	"ì—˜ë¦¬ì§€",
+	"ë·¸ë ›",
+	"ë§¤ë²„ë¦­ í—¤ë¦¬ì½¥í„°",
+	"ìƒ¤ë©œ ë¹„í–‰ê¸°"
 };
 new carPrice[8]={6000,22000,46000,25000,430000,470000,110000,160000};
 
 new carMemo[1][200]={
-	"°¡°İ : 6000¿ø\n\nÈ¿°ú : °É¾î´Ù´Ï´Â °Íº¸´Ù ºü¸£°Ô ´Ù´Ò ¼ö ÀÖ´Ù.\n°üµ¿Áö¹æ ÅÂÃÊ¸¶À» 30³âÁö±â ÀÚÀü°Å ÀåÀÎÀÌ ¸¸µç »ê¾ÇÇü MTBÀÚÀü°Å"
+	"ê°€ê²© : 6000ì›\n\níš¨ê³¼ : ê±¸ì–´ë‹¤ë‹ˆëŠ” ê²ƒë³´ë‹¤ ë¹ ë¥´ê²Œ ë‹¤ë‹ ìˆ˜ ìˆë‹¤.\nê´€ë™ì§€ë°© íƒœì´ˆë§ˆì„ 30ë…„ì§€ê¸° ìì „ê±° ì¥ì¸ì´ ë§Œë“  ì‚°ì•…í˜• MTBìì „ê±°"
 };
 
 new itemMemo[4][200]={
-	"°¡°İ : 100¿ø\n\nÈ¿°ú : ¾ß»ı Æ÷ÄÏ¸ó¿¡°Ô »ç¿ëÇÏ¿© Æ÷ÄÏ¸óÀ» Æ÷È¹ÇÑ´Ù.\nÆ÷È¹·ü : Æ÷È¹·ü: x 1.0\nÆ÷È¹¹İ°æ : 0.0m~0.9m\n¾ß»ı Æ÷ÄÏ¸ó¿¡°Ô ´øÁ®¼­ Àâ±â À§ÇÑ º¼ Ä¸½¶½ÄÀ¸·Î µÇ¾î ÀÖ´Ù.",
-	"°¡°İ : 600¿ø\n\nÈ¿°ú : ¾ß»ı Æ÷ÄÏ¸ó¿¡°Ô »ç¿ëÇÏ¿© Æ÷ÄÏ¸óÀ» Æ÷È¹ÇÑ´Ù.\nÆ÷È¹·ü : Æ÷È¹·ü: x 1.5\nÆ÷È¹¹İ°æ : 0.0m~1.9m\n¸ó½ºÅÍº¼º¸´Ùµµ ´õ¿í Æ÷ÄÏ¸óÀ» Àâ±â ½¬¿öÁø ¾à°£ ¼º´ÉÀÌ ÁÁÀº º¼",
-	"°¡°İ : 1200¿ø\n\nÈ¿°ú : ¾ß»ı Æ÷ÄÏ¸ó¿¡°Ô »ç¿ëÇÏ¿© Æ÷ÄÏ¸óÀ» Æ÷È¹ÇÑ´Ù.\nÆ÷È¹·ü : Æ÷È¹·ü: x 2.0\nÆ÷È¹¹İ°æ : 0.0m~2.9m\n¿ïÆ®¶óº¼º¸´Ùµµ ´õ¿í Æ÷ÄÏ¸óÀ» Àâ±â ½¬¿öÁø ¸Å¿ì ¼º´ÉÀÌ ÁÁÀº º¼",
-	"°¡°İ : ÆÇ¸ÅºÒ°¡\n\nÈ¿°ú : ¾ß»ı Æ÷ÄÏ¸ó¿¡°Ô »ç¿ëÇÏ¿© Æ÷ÄÏ¸óÀ» Æ÷È¹ÇÑ´Ù.\nÆ÷È¹·ü : °è»ê½Ä ¾øÀÌ 100ÆÛ¼¾Æ® Æ÷È¹\nÆ÷È¹¹İ°æ : 0.0m~4.9m\n¾ß»ı Æ÷ÄÏ¸óÀ» ¹İµå½Ã ÀâÀ» ¼ö ÀÖ´Â ÃÖ°í ¼º´ÉÀÇ º¼"
+	"ê°€ê²© : 100ì›\n\níš¨ê³¼ : ì•¼ìƒ í¬ì¼“ëª¬ì—ê²Œ ì‚¬ìš©í•˜ì—¬ í¬ì¼“ëª¬ì„ í¬íší•œë‹¤.\ní¬íšë¥  : í¬íšë¥ : x 1.0\ní¬íšë°˜ê²½ : 0.0m~0.9m\nì•¼ìƒ í¬ì¼“ëª¬ì—ê²Œ ë˜ì ¸ì„œ ì¡ê¸° ìœ„í•œ ë³¼ ìº¡ìŠì‹ìœ¼ë¡œ ë˜ì–´ ìˆë‹¤.",
+	"ê°€ê²© : 600ì›\n\níš¨ê³¼ : ì•¼ìƒ í¬ì¼“ëª¬ì—ê²Œ ì‚¬ìš©í•˜ì—¬ í¬ì¼“ëª¬ì„ í¬íší•œë‹¤.\ní¬íšë¥  : í¬íšë¥ : x 1.5\ní¬íšë°˜ê²½ : 0.0m~1.9m\nëª¬ìŠ¤í„°ë³¼ë³´ë‹¤ë„ ë”ìš± í¬ì¼“ëª¬ì„ ì¡ê¸° ì‰¬ì›Œì§„ ì•½ê°„ ì„±ëŠ¥ì´ ì¢‹ì€ ë³¼",
+	"ê°€ê²© : 1200ì›\n\níš¨ê³¼ : ì•¼ìƒ í¬ì¼“ëª¬ì—ê²Œ ì‚¬ìš©í•˜ì—¬ í¬ì¼“ëª¬ì„ í¬íší•œë‹¤.\ní¬íšë¥  : í¬íšë¥ : x 2.0\ní¬íšë°˜ê²½ : 0.0m~2.9m\nìš¸íŠ¸ë¼ë³¼ë³´ë‹¤ë„ ë”ìš± í¬ì¼“ëª¬ì„ ì¡ê¸° ì‰¬ì›Œì§„ ë§¤ìš° ì„±ëŠ¥ì´ ì¢‹ì€ ë³¼",
+	"ê°€ê²© : íŒë§¤ë¶ˆê°€\n\níš¨ê³¼ : ì•¼ìƒ í¬ì¼“ëª¬ì—ê²Œ ì‚¬ìš©í•˜ì—¬ í¬ì¼“ëª¬ì„ í¬íší•œë‹¤.\ní¬íšë¥  : ê³„ì‚°ì‹ ì—†ì´ 100í¼ì„¼íŠ¸ í¬íš\ní¬íšë°˜ê²½ : 0.0m~4.9m\nì•¼ìƒ í¬ì¼“ëª¬ì„ ë°˜ë“œì‹œ ì¡ì„ ìˆ˜ ìˆëŠ” ìµœê³  ì„±ëŠ¥ì˜ ë³¼"
 };
 
 new ballObjNum[4]={2997,2996,3106,2998};
 new itemName[4][20]={
-	"Æ÷ÄÏº¼",
-	"±×·¹ÀÌÆ®º¼",
-	"¿ïÆ®¶óº¼",
-	"¸¶½ºÅÍº¼"
+	"í¬ì¼“ë³¼",
+	"ê·¸ë ˆì´íŠ¸ë³¼",
+	"ìš¸íŠ¸ë¼ë³¼",
+	"ë§ˆìŠ¤í„°ë³¼"
 };
 
 new itemPrice[4]={
@@ -315,87 +263,87 @@ new poketMonName[81][20]={
 };
 
 new poketMonNameHan[81][20]={
-	"ÇÇÄ«Ãò",
-	"ÆÄÀÌ¸®",
-	"²¿ºÎ±â",
-	"ÅÁ±¸¸®",
-	"ÇªÇª¸°",
-	"ÀÌºêÀÌ",
-	"±¸±¸",
-	"°í¶óÆÄ´ö",
-	"Åä°ÔÇÇ",
-	"¹ßÃ¬ÀÌ",
-	"ÀÌ»óÇØ¾¾",
-	"¸ğ´ÙÇÇ",
-	"ÄÚÀÏ",
-	"²¿·¿",
-	"ÆÒÅÒ",
-	"¸ŞÅ¸¸ù",
-	"»ÔÃÑ",
-	"ºÎ½ºÅÍ",
-	"Âî¸®¸®°ø",
-	"¶Çµµ°¡½º",
-	"³Ä¿ËÀÌ",
-	"²¿¸¶µ¹",
-	"±úºñÂü",
-	"°í¿À½º",
-	"°¡µğ",
-	"È«¼ö¸ó",
-	"ÇÁÅ×¶ó",
-	"ÇÁ¸®Á®",
-	"Æú¸®°ï",
-	"Æ÷´ÏÅ¸",
-	"ÆÄ¿À¸®",
-	"Åõ±¸",
-	"Å©·¦",
-	"ÄÜÆÎ",
-	"ÄÜÄ¡",
-	"ÄËÅ¸·Î¿ì½º",
-	"Ä»Ä«",
-	"Ä³ÅÍÇÇ",
-	"Ä³ÀÌ½Ã",
-	"ÁúÆÜÀÌ",
-	"ÁêÇÇ½ã´õ",
-	"Áê·¹°ï",
-	"Áêº£½º",
-	"Àá¸¸º¸",
-	"À×¾îÅ·",
-	"¿Õ´«ÇØ",
-	"¿¡·¹ºê",
-	"¾ßµ·",
-	"¾Ï³ªÀÌÆ®",
-	"¾ËÅë¸ó",
-	"¾Æº¸Å©",
-	"¾Æ¶ó¸®",
-	"½îµå¶ó",
-	"½ã´õ",
-	"½Å´¨",
-	"½Ä½ºÅ×ÀÏ",
-	"½½¸®ÇÁ",
-	"½º¶óÅ©",
-	"¼¿·¯",
-	"»ş¹Ìµå",
-	"»ß»ß",
-	"»Ú»çÀÌÁ®",
-	"»ÔÄ«³ë",
-	"º°°¡»ç¸®",
-	"¹Ì´¨",
-	"¹ÂÃ÷",
-	"¸ğ·¡µÎÁö",
-	"¸ÁÅ°",
-	"¸¶ÀÓ¸Ç",
-	"¸¶±×¸¶",
-	"·çÁÖ¶ó",
-	"·Õ½ºÅæ",
-	"·°Å°",
-	"¶óÇÁ¶ó½º",
-	"¶Ñ¹÷Ãİ",
-	"µğ±×´Ù",
-	"µÎµÎ",
-	"µ¢Äí¸®",
-	"´Ïµµ¶õ(³²)",
-	"´Ïµµ¶õ(¿©)",
-	"³»·ç¹Ì"
+	"í”¼ì¹´ì¸„",
+	"íŒŒì´ë¦¬",
+	"ê¼¬ë¶€ê¸°",
+	"íƒ•êµ¬ë¦¬",
+	"í‘¸í‘¸ë¦°",
+	"ì´ë¸Œì´",
+	"êµ¬êµ¬",
+	"ê³ ë¼íŒŒë•",
+	"í† ê²Œí”¼",
+	"ë°œì±™ì´",
+	"ì´ìƒí•´ì”¨",
+	"ëª¨ë‹¤í”¼",
+	"ì½”ì¼",
+	"ê¼¬ë ›",
+	"íŒ¬í…€",
+	"ë©”íƒ€ëª½",
+	"ë¿”ì´",
+	"ë¶€ìŠ¤í„°",
+	"ì°Œë¦¬ë¦¬ê³µ",
+	"ë˜ë„ê°€ìŠ¤",
+	"ëƒì˜¹ì´",
+	"ê¼¬ë§ˆëŒ",
+	"ê¹¨ë¹„ì°¸",
+	"ê³ ì˜¤ìŠ¤",
+	"ê°€ë””",
+	"í™ìˆ˜ëª¬",
+	"í”„í…Œë¼",
+	"í”„ë¦¬ì ¸",
+	"í´ë¦¬ê³¤",
+	"í¬ë‹ˆíƒ€",
+	"íŒŒì˜¤ë¦¬",
+	"íˆ¬êµ¬",
+	"í¬ë©",
+	"ì½˜íŒ¡",
+	"ì½˜ì¹˜",
+	"ì¼„íƒ€ë¡œìš°ìŠ¤",
+	"ìº¥ì¹´",
+	"ìºí„°í”¼",
+	"ìºì´ì‹œ",
+	"ì§ˆí½ì´",
+	"ì¥¬í”¼ì¬ë”",
+	"ì¥¬ë ˆê³¤",
+	"ì¥¬ë² ìŠ¤",
+	"ì ë§Œë³´",
+	"ì‰ì–´í‚¹",
+	"ì™•ëˆˆí•´",
+	"ì—ë ˆë¸Œ",
+	"ì•¼ëˆ",
+	"ì•”ë‚˜ì´íŠ¸",
+	"ì•Œí†µëª¬",
+	"ì•„ë³´í¬",
+	"ì•„ë¼ë¦¬",
+	"ì˜ë“œë¼",
+	"ì¬ë”",
+	"ì‹ ë‡½",
+	"ì‹ìŠ¤í…Œì¼",
+	"ìŠ¬ë¦¬í”„",
+	"ìŠ¤ë¼í¬",
+	"ì…€ëŸ¬",
+	"ìƒ¤ë¯¸ë“œ",
+	"ì‚ì‚",
+	"ì˜ì‚¬ì´ì ¸",
+	"ë¿”ì¹´ë…¸",
+	"ë³„ê°€ì‚¬ë¦¬",
+	"ë¯¸ë‡½",
+	"ë®¤ì¸ ",
+	"ëª¨ë˜ë‘ì§€",
+	"ë§í‚¤",
+	"ë§ˆì„ë§¨",
+	"ë§ˆê·¸ë§ˆ",
+	"ë£¨ì£¼ë¼",
+	"ë¡±ìŠ¤í†¤",
+	"ëŸ­í‚¤",
+	"ë¼í”„ë¼ìŠ¤",
+	"ëšœë²…ìµ¸",
+	"ë””ê·¸ë‹¤",
+	"ë‘ë‘",
+	"ë©ì¿ ë¦¬",
+	"ë‹ˆë„ë€(ë‚¨)",
+	"ë‹ˆë„ë€(ì—¬)",
+	"ë‚´ë£¨ë¯¸"
 };
 
 public OnGameModeInit(){
@@ -470,7 +418,7 @@ stock textDraw_init(){
 stock textLabel_init(){
 	for(new a = 0;a<3;a++){
 		new str[40];
-		format(str, sizeof(str),"%s (YÅ°)",MissonDTO[a][NAME]);
+		format(str, sizeof(str),"%s (Yí‚¤)",MissonDTO[a][NAME]);
 		Create3DTextLabel(str, 0x8D8DFFFF, MissonDTO[a][POS_X], MissonDTO[a][POS_Y], MissonDTO[a][POS_Z], 7.0, 0, 0);
 	}
 }
@@ -482,8 +430,8 @@ stock mysql_init(){
 	#define sql_pass 	"root940617"
 	mysql = mysql_connect(sql_host, sql_user, sql_db, sql_pass);
 	mysql_set_charset("euckr");
-	if(mysql_errno(mysql) != 0) print("DB ¿¬°áÀÌ ¾ÈµÊ.");
-	else print("DB ¿¬°áµÊ.");
+	if(mysql_errno(mysql) != 0) print("DB ì—°ê²°ì´ ì•ˆë¨.");
+	else print("DB ì—°ê²°ë¨.");
 }
 
 public OnGameModeExit(){
@@ -540,8 +488,8 @@ stock startConnect(playerid){
 }
 
 stock helpInfo(playerid){
-	new memo[400]={"{8D8DFF}°øÁö»çÇ×{FFFFFF}\n¿ÀºêÁ§Æ® Á¦ÀÛÀÚ ÇÑºĞÀ» Ã£½À´Ï´Ù. (¾÷¹«¸í : Æ÷ÄÏ¸ó¼¾ÅÍ Á¦ÀÛ)\nÁÁÀº ÄÁÅÙÃ÷ ±âÈ¹ ¾ÆÀÌµğ¾î µµ¿òÀ» ÁÖ½ÇºĞµéÀ» Ã£½À´Ï´Ù.\nÂü¿©µµ¿¡ µû¶ó Â÷ ÈÄ ¼ÒÁ¤ÀÇ ÇıÅÃ Áö±Ş\n\nÂü¿© Ä«Åå ¿ÀÇÂÃ¤ÆÃ : https://open.kakao.com/o/gpZ9Qqm\n\n{8D8DFF}¸í·É¾î ¾È³»{FFFFFF}\n\n/°¡¹æ(/b) /Â÷(/v) /Æ÷ÄÏ¸ó(/p)\n\n"};
-	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Æ÷ÄÏ¸ó ¸Å´ÏÀú",memo,"È®ÀÎ","");
+	new memo[400]={"{8D8DFF}ê³µì§€ì‚¬í•­{FFFFFF}\nì˜¤ë¸Œì íŠ¸ ì œì‘ì í•œë¶„ì„ ì°¾ìŠµë‹ˆë‹¤. (ì—…ë¬´ëª… : í¬ì¼“ëª¬ì„¼í„° ì œì‘)\nì¢‹ì€ ì»¨í…ì¸  ê¸°íš ì•„ì´ë””ì–´ ë„ì›€ì„ ì£¼ì‹¤ë¶„ë“¤ì„ ì°¾ìŠµë‹ˆë‹¤.\nì°¸ì—¬ë„ì— ë”°ë¼ ì°¨ í›„ ì†Œì •ì˜ í˜œíƒ ì§€ê¸‰\n\nì°¸ì—¬ ì¹´í†¡ ì˜¤í”ˆì±„íŒ… : https://open.kakao.com/o/gpZ9Qqm\n\n{8D8DFF}ëª…ë ¹ì–´ ì•ˆë‚´{FFFFFF}\n\n/ê°€ë°©(/b) /ì°¨(/v) /í¬ì¼“ëª¬(/p)\n\n"};
+	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}í¬ì¼“ëª¬ ë§¤ë‹ˆì €",memo,"í™•ì¸","");
 }
 
 stock joinController(playerid){
@@ -556,9 +504,9 @@ stock joinController(playerid){
 	if(rows){
 		UserDTO[playerid][ID] = cache_get_field_content_int(0, "ID");
 		cache_get_field_content(0, "PASS", UserDTO[playerid][PASS], mysql, 24);
-		ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}°èÁ¤°ü¸® ¸Å´ÏÀú", "{FFFFFF}ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", "·Î±×ÀÎ", "³ª°¡±â");
+		ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}ê³„ì •ê´€ë¦¬ ë§¤ë‹ˆì €", "{FFFFFF}ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.", "ë¡œê·¸ì¸", "ë‚˜ê°€ê¸°");
 	}else{
-		ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}°èÁ¤°ü¸® ¸Å´ÏÀú", "{FFFFFF}ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", "È¸¿ø°¡ÀÔ", "³ª°¡±â");
+		ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}ê³„ì •ê´€ë¦¬ ë§¤ë‹ˆì €", "{FFFFFF}ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.", "íšŒì›ê°€ì…", "ë‚˜ê°€ê¸°");
 	}
 }
 
@@ -568,16 +516,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]){
 	    case d_Log:joinDialog(playerid,response,inputtext,0);
 	    case d_Reg:joinDialog(playerid,response,inputtext,1);
 	    case poketmon_Bag:{
-			if(PoketmonDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		Æ÷ÄÏ¸óÀÌ ¾ø½À´Ï´Ù.");
+			if(PoketmonDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		í¬ì¼“ëª¬ì´ ì—†ìŠµë‹ˆë‹¤.");
 			bagDialog(playerid,response,listitem,0);
 		}
 	    case player_Bag:{
-			if(ItemDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+			if(ItemDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
 			bagDialog(playerid,response,listitem,1);
 		}
 	    case slot_bag:slotEventItem(playerid,response,listitem);
 	    case car_Bag:{
-			if(CarDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		Â÷·®ÀÌ ¾ø½À´Ï´Ù.");
+			if(CarDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		ì°¨ëŸ‰ì´ ì—†ìŠµë‹ˆë‹¤.");
 			carDialog(playerid,response,listitem);
 		}
 	    case slot_car:slotEventCar(playerid,response,listitem);
@@ -604,7 +552,7 @@ stock mediDialog(playerid,response,listitem,type){
 	if(response){
 		printf("%d %d",listitem,type);
 	}else{
-		ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}Æ÷ÄÏ¸ó Ä¡·á\nÆ÷ÄÏ¸ó ÇÕ¼º\nÆ÷ÄÏ¸ó ºĞ¾ç\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
+		ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}í¬ì¼“ëª¬ ì¹˜ë£Œ\ní¬ì¼“ëª¬ í•©ì„±\ní¬ì¼“ëª¬ ë¶„ì–‘\nëŒ€í™”(í€˜ìŠ¤íŠ¸)","í™•ì¸", "ì·¨ì†Œ");
 	}
 }
 
@@ -614,7 +562,7 @@ stock itemShopDialog(playerid,response,listitem,type){
 	if(response){
 		printf("%d %d",listitem,type);
 	}else{
-		ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}¾ÆÀÌÅÛ ±¸¸Å\n¾ÆÀÌÅÛ ÆÇ¸Å\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
+		ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}ì•„ì´í…œ êµ¬ë§¤\nì•„ì´í…œ íŒë§¤\nëŒ€í™”(í€˜ìŠ¤íŠ¸)","í™•ì¸", "ì·¨ì†Œ");
 	}
 }
 
@@ -624,7 +572,7 @@ stock carShopDialog(playerid,response,listitem,type){
 	if(response){
 		printf("%d %d",listitem,type);
 	}else{
-		ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Â÷·® ±¸¸Å\nÂ÷·® ÆÇ¸Å\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
+		ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}ì°¨ëŸ‰ êµ¬ë§¤\nì°¨ëŸ‰ íŒë§¤\nëŒ€í™”(í€˜ìŠ¤íŠ¸)","í™•ì¸", "ì·¨ì†Œ");
 	}
 }
 
@@ -650,19 +598,19 @@ stock selectMadi(playerid,listitem){
 }
 
 stock poketmonCare(playerid,str[]){
-	ShowPlayerDialog(playerid, medi_care, DIALOG_STYLE_LIST, "Æ÷ÄÏ¸ó Ä¡·á",str,"È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, medi_care, DIALOG_STYLE_LIST, "í¬ì¼“ëª¬ ì¹˜ë£Œ",str,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock poketmonMix(playerid,str[]){
-	ShowPlayerDialog(playerid, medi_mix, DIALOG_STYLE_LIST, "Æ÷ÄÏ¸ó ÇÕ¼º",str,"È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, medi_mix, DIALOG_STYLE_LIST, "í¬ì¼“ëª¬ í•©ì„±",str,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock poketmonSell(playerid,str[]){
-	ShowPlayerDialog(playerid, medi_sell, DIALOG_STYLE_LIST, "Æ÷ÄÏ¸ó ºĞ¾ç",str,"È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, medi_sell, DIALOG_STYLE_LIST, "í¬ì¼“ëª¬ ë¶„ì–‘",str,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock poketmonQwest(playerid){
-	ShowPlayerDialog(playerid, medi_qwest, DIALOG_STYLE_LIST, "Æ÷ÄÏ¸ó Äù½ºÆ®","°æÇè¿¡ ¸Â´Â Äù½ºÆ®°¡ ¾ø½À´Ï´Ù.\n","È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, medi_qwest, DIALOG_STYLE_LIST, "í¬ì¼“ëª¬ í€˜ìŠ¤íŠ¸","ê²½í—˜ì— ë§ëŠ” í€˜ìŠ¤íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.\n","í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock selectItemShop(playerid,listitem){
@@ -675,18 +623,18 @@ stock selectItemShop(playerid,listitem){
 
 stock itemShopBuy(playerid){
 	new sumText[624];
-	format(sumText, sizeof(sumText), "%s (°¡°İ : %d¿ø)\n%s (°¡°İ : %d¿ø)\n%s (°¡°İ : %d¿ø)\n%s (°¡°İ : %d¿ø)\n",itemName[0],itemPrice[0],itemName[1],itemPrice[1],itemName[2],itemPrice[2],itemName[3],itemPrice[3]);
-	ShowPlayerDialog(playerid, item_buy, DIALOG_STYLE_LIST, "¾ÆÀÌÅÛ ±¸¸Å",sumText,"È®ÀÎ", "Ãë¼Ò");
+	format(sumText, sizeof(sumText), "%s (ê°€ê²© : %dì›)\n%s (ê°€ê²© : %dì›)\n%s (ê°€ê²© : %dì›)\n%s (ê°€ê²© : %dì›)\n",itemName[0],itemPrice[0],itemName[1],itemPrice[1],itemName[2],itemPrice[2],itemName[3],itemPrice[3]);
+	ShowPlayerDialog(playerid, item_buy, DIALOG_STYLE_LIST, "ì•„ì´í…œ êµ¬ë§¤",sumText,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock itemShopSell(playerid){
 	new sumText[624];
 	format(sumText, sizeof(sumText), "%s",getBagInfo(playerid));
-	ShowPlayerDialog(playerid, item_sell, DIALOG_STYLE_LIST, "¾ÆÀÌÅÛ ÆÇ¸Å",sumText,"È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, item_sell, DIALOG_STYLE_LIST, "ì•„ì´í…œ íŒë§¤",sumText,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock itemShopQwest(playerid){
-	ShowPlayerDialog(playerid, item_qwest, DIALOG_STYLE_LIST, "¾ÆÀÌÅÛ Äù½ºÆ®","°æÇè¿¡ ¸Â´Â Äù½ºÆ®°¡ ¾ø½À´Ï´Ù.\n","È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, item_qwest, DIALOG_STYLE_LIST, "ì•„ì´í…œ í€˜ìŠ¤íŠ¸","ê²½í—˜ì— ë§ëŠ” í€˜ìŠ¤íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.\n","í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock selectCarShop(playerid,listitem){
@@ -699,7 +647,7 @@ stock selectCarShop(playerid,listitem){
 
 stock carShopBuy(playerid){
 	new sumText[624];
-	format(sumText, sizeof(sumText), "%s Model: %d \t(°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n%s Model: %d (°¡°İ : %d¿ø)\n",
+	format(sumText, sizeof(sumText), "%s Model: %d \t(ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n%s Model: %d (ê°€ê²© : %dì›)\n",
 	carName[0],carModelNum[0],carPrice[0],
 	carName[1],carModelNum[1],carPrice[1],
 	carName[2],carModelNum[2],carPrice[2],
@@ -709,17 +657,17 @@ stock carShopBuy(playerid){
 	carName[6],carModelNum[6],carPrice[6],
 	carName[7],carModelNum[7],carPrice[7]
 	);
-	ShowPlayerDialog(playerid, car_buy, DIALOG_STYLE_LIST, "Â÷·® ±¸¸Å",sumText,"È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, car_buy, DIALOG_STYLE_LIST, "ì°¨ëŸ‰ êµ¬ë§¤",sumText,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock carShopSell(playerid){
 	new sumText[200];
 	format(sumText, sizeof(sumText), "%s",getCarInfo(playerid));
-	ShowPlayerDialog(playerid, car_sell, DIALOG_STYLE_LIST, "Â÷·® ÆÇ¸Å",sumText,"È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, car_sell, DIALOG_STYLE_LIST, "ì°¨ëŸ‰ íŒë§¤",sumText,"í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock carShopQwest(playerid){
-	ShowPlayerDialog(playerid, car_qwest, DIALOG_STYLE_LIST, "Â÷·® Äù½ºÆ®","°æÇè¿¡ ¸Â´Â Äù½ºÆ®°¡ ¾ø½À´Ï´Ù.\n","È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, car_qwest, DIALOG_STYLE_LIST, "ì°¨ëŸ‰ í€˜ìŠ¤íŠ¸","ê²½í—˜ì— ë§ëŠ” í€˜ìŠ¤íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.\n","í™•ì¸", "ì·¨ì†Œ");
 }
 
 
@@ -734,7 +682,7 @@ stock selectCar(playerid,num){
 	IngameDTO[playerid][FORWARD]=num;
 	new carNum=CarDTO[playerid][num][MODEL];
 	format(str, sizeof(str),"{8D8DFF}%s (Model: %d)",carName[carNum],carModelNum[carNum]);
-	ShowPlayerDialog(playerid, slot_car, DIALOG_STYLE_LIST, str,"»ç¿ë\n³Ö±â\nÁ¤º¸","È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, slot_car, DIALOG_STYLE_LIST, str,"ì‚¬ìš©\në„£ê¸°\nì •ë³´","í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock slotEventCar(playerid,response,listitem){
@@ -767,7 +715,7 @@ stock infoCar(playerid,num){
 }
 
 stock selectCarInfo(playerid,num){
-	new memo[300]={"{FFFFFF}Â÷·® Á¤º¸ : %s(Model : %d)\n\n{8D8DFF}»ó¼¼¼³¸í{FFFFFF}\n\n%s\n\n"};
+	new memo[300]={"{FFFFFF}ì°¨ëŸ‰ ì •ë³´ : %s(Model : %d)\n\n{8D8DFF}ìƒì„¸ì„¤ëª…{FFFFFF}\n\n%s\n\n"};
 	new str[300];
 	new carNum=CarDTO[playerid][num][MODEL];
 	
@@ -776,7 +724,7 @@ stock selectCarInfo(playerid,num){
 	carModelNum[carNum],
 	carMemo[carNum]
 	);
-	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Æ÷ÄÏ¸ó ¸Å´ÏÀú",str,"È®ÀÎ","");
+	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}í¬ì¼“ëª¬ ë§¤ë‹ˆì €",str,"í™•ì¸","");
 }
 
 stock bagDialog(playerid,response,listitem,type){
@@ -798,7 +746,7 @@ stock selectInventory(playerid,num){
 	IngameDTO[playerid][FORWARD]=ItemDTO[playerid][num][TYPE];
 	IngameDTO[playerid][ITEAMNUM]=IngameDTO[playerid][FORWARD];
 	format(str, sizeof(str),"{8D8DFF}%s",itemName[IngameDTO[playerid][FORWARD]]);
-	ShowPlayerDialog(playerid, slot_bag, DIALOG_STYLE_LIST, str,"»ç¿ë\n³Ö±â\nÁ¤º¸","È®ÀÎ", "Ãë¼Ò");
+	ShowPlayerDialog(playerid, slot_bag, DIALOG_STYLE_LIST, str,"ì‚¬ìš©\në„£ê¸°\nì •ë³´","í™•ì¸", "ì·¨ì†Œ");
 }
 
 stock slotEventItem(playerid,response,listitem){
@@ -815,10 +763,10 @@ stock takeItem(playerid,num){
 	switch(num){
 	    case 0..3:
 	    {
-			if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		ÀÌ¹Ì ¸ó½ºÅÍº¼À» ²¨³»¼Ì½À´Ï´Ù.");
+			if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		ì´ë¯¸ ëª¬ìŠ¤í„°ë³¼ì„ êº¼ë‚´ì…¨ìŠµë‹ˆë‹¤.");
 			openPoketball(playerid,num);
 			new str[126];
-			format(str, sizeof(str),"		°¡¹æ¿¡¼­ %sÀ»(¸¦) ²¨³½´Ù.",itemName[num]);
+			format(str, sizeof(str),"		ê°€ë°©ì—ì„œ %sì„(ë¥¼) êº¼ë‚¸ë‹¤.",itemName[num]);
 			SendClientMessage(playerid,col_sys,str);
 	    }
 	}
@@ -829,9 +777,9 @@ stock putItem(playerid,num){
 	switch(num){
 	    case 0..3:
 	    {
-			if(IngameDTO[playerid][ITEAMNUM] != num) return SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» ²¨³»Áö ¾Ê¾Ò½À´Ï´Ù.");
-			if(IngameDTO[playerid][ISBALL] == false) return SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» ²¨³»Áö ¾Ê¾Ò½À´Ï´Ù.");
-			SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» °¡¹æ¿¡ ³Ö´Â´Ù.");
+			if(IngameDTO[playerid][ITEAMNUM] != num) return SendClientMessage(playerid,col_sys,"		ëª¬ìŠ¤í„°ë³¼ì„ êº¼ë‚´ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+			if(IngameDTO[playerid][ISBALL] == false) return SendClientMessage(playerid,col_sys,"		ëª¬ìŠ¤í„°ë³¼ì„ êº¼ë‚´ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+			SendClientMessage(playerid,col_sys,"		ëª¬ìŠ¤í„°ë³¼ì„ ê°€ë°©ì— ë„£ëŠ”ë‹¤.");
 			closePoketBall(playerid);
 		}
 	}
@@ -843,17 +791,17 @@ stock infoItem(playerid,num){
 }
 
 stock selectItemInfo(playerid,num){
-	new memo[300]={"{FFFFFF}¾ÆÀÌÅÛ Á¤º¸ : %s\n\n{8D8DFF}»ó¼¼¼³¸í{FFFFFF}\n\n%s\n\n"};
+	new memo[300]={"{FFFFFF}ì•„ì´í…œ ì •ë³´ : %s\n\n{8D8DFF}ìƒì„¸ì„¤ëª…{FFFFFF}\n\n%s\n\n"};
 	new str[300];
 	format(str,sizeof(str),memo,
 	itemName[num],
 	itemMemo[num]
 	);
-	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Æ÷ÄÏ¸ó ¸Å´ÏÀú",str,"È®ÀÎ","");
+	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}í¬ì¼“ëª¬ ë§¤ë‹ˆì €",str,"í™•ì¸","");
 }
 
 stock selectPoketMon(playerid,num){
-	new memo[300]={"{FFFFFF}º°¸í : %s\nÆ÷ÄÏ¸ó¸í : %s\nCPÁ¡¼ö : %d\n\n{8D8DFF}¹èÆ²±â·Ï{FFFFFF}\n½Â¸® : %d\tÆĞ¹è : %d\n\n{8D8DFF}»óÅÂÁ¤º¸{FFFFFF}\n°Ç°­µµ : %d\n¸ñ¸¶¸§ : %d\nÆ÷¸¸°¨ : %d\nÇÇ°ïÇÔ : %d\nÃ»°áµµ : %d\nÁñ°Å¿ò : %d\n\n\n{8D8DFF}Æ÷ÄÏ¸óÀº ÀÎÆ÷À¥¿¡¼­ ÈÆ·Ã½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù.\n{FFFFFF}sundayplay.kr"};
+	new memo[300]={"{FFFFFF}ë³„ëª… : %s\ní¬ì¼“ëª¬ëª… : %s\nCPì ìˆ˜ : %d\n\n{8D8DFF}ë°°í‹€ê¸°ë¡{FFFFFF}\nìŠ¹ë¦¬ : %d\tíŒ¨ë°° : %d\n\n{8D8DFF}ìƒíƒœì •ë³´{FFFFFF}\nê±´ê°•ë„ : %d\nëª©ë§ˆë¦„ : %d\ní¬ë§Œê° : %d\ní”¼ê³¤í•¨ : %d\nì²­ê²°ë„ : %d\nì¦ê±°ì›€ : %d\n\n\n{8D8DFF}í¬ì¼“ëª¬ì€ ì¸í¬ì›¹ì—ì„œ í›ˆë ¨ì‹œí‚¬ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\n{FFFFFF}sundayplay.kr"};
 	new str[300];
 	format(str,sizeof(str),memo,
 	PoketmonDTO[playerid][num][MONNAME],
@@ -868,7 +816,7 @@ stock selectPoketMon(playerid,num){
 	PoketmonDTO[playerid][num][CLEAN],
 	PoketmonDTO[playerid][num][FUNNY]
 	);
-	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Æ÷ÄÏ¸ó ¸Å´ÏÀú",str,"È®ÀÎ","");
+	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}í¬ì¼“ëª¬ ë§¤ë‹ˆì €",str,"í™•ì¸","");
 }
 
 stock joinDialog(playerid,response,inputtext[],type){
@@ -879,11 +827,11 @@ stock joinDialog(playerid,response,inputtext[],type){
 				LoadDB(playerid);
 				IngameDTO[playerid][LOGIN]=true;
 				
-    		}else ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}°èÁ¤°ü¸® ¸Å´ÏÀú", "{FFFFFF}ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù.", "·Î±×ÀÎ", "³ª°¡±â");
+    		}else ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}ê³„ì •ê´€ë¦¬ ë§¤ë‹ˆì €", "{FFFFFF}ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.", "ë¡œê·¸ì¸", "ë‚˜ê°€ê¸°");
 		}
 		case 1:{
-      		if(strlen(inputtext) > 24) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}°èÁ¤°ü¸® ¸Å´ÏÀú", "{FFFFFF}24ÀÚ ÀÌÇÏÀÇ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", "È¸¿ø°¡ÀÔ", "³ª°¡±â");
-		    if(strlen(inputtext) < 6) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}°èÁ¤°ü¸® ¸Å´ÏÀú", "{FFFFFF}6ÀÚ ÀÌ»óÀÇ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", "È¸¿ø°¡ÀÔ", "³ª°¡±â");
+      		if(strlen(inputtext) > 24) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}ê³„ì •ê´€ë¦¬ ë§¤ë‹ˆì €", "{FFFFFF}24ì ì´í•˜ì˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.", "íšŒì›ê°€ì…", "ë‚˜ê°€ê¸°");
+		    if(strlen(inputtext) < 6) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}ê³„ì •ê´€ë¦¬ ë§¤ë‹ˆì €", "{FFFFFF}6ì ì´ìƒì˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.", "íšŒì›ê°€ì…", "ë‚˜ê°€ê¸°");
 		    InsertLogAdapter(playerid,inputtext);
 			IngameDTO[playerid][LOGIN]=true;
 		}
@@ -891,7 +839,7 @@ stock joinDialog(playerid,response,inputtext[],type){
 	return 1;
 }
 stock LoadDB(playerid){
-	print("\nÀ¯Àú·Î±× ºÒ·¯¿È");
+	print("\nìœ ì €ë¡œê·¸ ë¶ˆëŸ¬ì˜´");
 	new query[200];
 	mysql_format(mysql, query, sizeof(query), "SELECT * FROM `DMSERVER_TABLE` WHERE `ID` = %d LIMIT 1",UserDTO[playerid][ID]);
 	mysql_query(mysql, query, true);
@@ -921,7 +869,7 @@ stock LoadDB(playerid){
 	}
 	SetSpawnInfo(playerid, UserDTO[playerid][TEAM], UserDTO[playerid][SKIN], UserDTO[playerid][POS_X], UserDTO[playerid][POS_Y], UserDTO[playerid][POS_Z], UserDTO[playerid][ANGLE], 0, 0, 0, 0, 0, 0);
 	SpawnPlayer(playerid);
-	SendClientMessage(playerid,col_sys,"		´ç½ÅÀÇ ÀÎÆ÷À¥ Á¢±Ù±ÇÇÑ ÇÉÄÚµå´Â 23552ÀÔ´Ï´Ù.");
+	SendClientMessage(playerid,col_sys,"		ë‹¹ì‹ ì˜ ì¸í¬ì›¹ ì ‘ê·¼ê¶Œí•œ í•€ì½”ë“œëŠ” 23552ì…ë‹ˆë‹¤.");
 }
 
 stock InsertLogAdapter(playerid,inputtext[]){
@@ -940,7 +888,7 @@ stock InsertLogAdapter(playerid,inputtext[]){
 
 	stock InsertDB(playerid){
 
-		print("\nÀ¯Àú·Î±× »ı¼º");
+		print("\nìœ ì €ë¡œê·¸ ìƒì„±");
 		new query[400];
 		new sqlSum[400];
 		format(sqlSum, sizeof(sqlSum), "%s%s", sql[0],sql[1]);
@@ -958,7 +906,7 @@ stock InsertLogAdapter(playerid,inputtext[]){
 		UserDTO[playerid][ID] = cache_insert_id();
 		SetSpawnInfo(playerid, UserDTO[playerid][TEAM], UserDTO[playerid][SKIN], UserDTO[playerid][POS_X], UserDTO[playerid][POS_Y], UserDTO[playerid][POS_Z], UserDTO[playerid][ANGLE], 0, 0, 0, 0, 0, 0);
 		SpawnPlayer(playerid);
-		SendClientMessage(playerid,col_sys,"		´ç½ÅÀÇ ÀÎÆ÷À¥ Á¢±Ù±ÇÇÑ ÇÉÄÚµå´Â 23552ÀÔ´Ï´Ù.");
+		SendClientMessage(playerid,col_sys,"		ë‹¹ì‹ ì˜ ì¸í¬ì›¹ ì ‘ê·¼ê¶Œí•œ í•€ì½”ë“œëŠ” 23552ì…ë‹ˆë‹¤.");
 	}
 
 stock SpawnInit(playerid){
@@ -1054,7 +1002,7 @@ public OnPlayerDisconnect(playerid, reason){
 	return 1;
 }
 
-/*HACK : ÃÊ±âÈ­*/
+/*HACK : ì´ˆê¸°í™”*/
 stock UserLogInit(playerid){
 	new temp1[USER];
 	new temp2[CAR];
@@ -1101,7 +1049,7 @@ stock PutLogDB(playerid){
 	UserDTO[playerid][ID]
 	);
 	mysql_query(mysql, query, true);
-	SendClientMessage(playerid,col_sys, "		ÀúÀåµÇ¾ú½À´Ï´Ù.");
+	SendClientMessage(playerid,col_sys, "		ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 	return 1;
 }
 
@@ -1126,7 +1074,7 @@ stock inCar(playerid,vehicleid){
 stock checkWarp(playerid){
    WarpDTO[playerid][INCAR]=true;
    new msg[32];
-   format(msg,sizeof(msg), "Á¤»óÅ¾½Â : %s", (WarpDTO[playerid][CHECK]) ? ("¸ÂÀ½") : ("¾Æ´Ô"));
+   format(msg,sizeof(msg), "ì •ìƒíƒ‘ìŠ¹ : %s", (WarpDTO[playerid][CHECK]) ? ("ë§ìŒ") : ("ì•„ë‹˜"));
    SendClientMessage(playerid, -1, msg);
    
    if(!WarpDTO[playerid][CHECK]){
@@ -1154,7 +1102,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys){
 	if(IngameDTO[playerid][ISBALL] && !IsPlayerInAnyVehicle(playerid)){
 		if(PRESSED(KEY_HANDBRAKE)){
 			if(distance < 1){
-				if(isShotBall==true) return SendClientMessage(playerid,col_sys,"		´©±º°¡ Æ÷ÄÏ¸óÀ» Æ÷È¹ÁßÀÔ´Ï´Ù.");
+				if(isShotBall==true) return SendClientMessage(playerid,col_sys,"		ëˆ„êµ°ê°€ í¬ì¼“ëª¬ì„ í¬íšì¤‘ì…ë‹ˆë‹¤.");
 				isShotBall=true;
 				IngameDTO[playerid][SHOTB]=true;
 				showPoketmonPickup(playerid);
@@ -1162,14 +1110,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys){
 			}
 			ClearAnimations(playerid);
 			ApplyAnimation(playerid,"BASEBALL","Bat_IDLE",4.1,0,1,1,1,1);
-			SendClientMessage(playerid,col_sys,"		Æ÷ÄÏ¸óÀ» ÇâÇØ Á¶ÁØÇÕ´Ï´Ù.");
+			SendClientMessage(playerid,col_sys,"		í¬ì¼“ëª¬ì„ í–¥í•´ ì¡°ì¤€í•©ë‹ˆë‹¤.");
 		}
 		if(RELEASED(KEY_HANDBRAKE)){
 			shotBall(playerid);
 			SetTimerEx("shotBallManager", 2000, false, "ii", playerid,distance);
 			ApplyAnimation(playerid,"BASEBALL","Bat_M",4.1,0,1,1,1,1);
 			openPoketball(playerid, 0);
-			SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» ´øÁı´Ï´Ù.");
+			SendClientMessage(playerid,col_sys,"		ëª¬ìŠ¤í„°ë³¼ì„ ë˜ì§‘ë‹ˆë‹¤.");
 			new num=IngameDTO[playerid][ITEAMNUM];
 			ItemDTO[playerid][num][AMOUNT]--;
 			if(ItemDTO[playerid][num][AMOUNT] == 0){
@@ -1198,9 +1146,9 @@ stock eventMisson(playerid, type){
 	new str[60];
 	format(str, sizeof(str),"{8D8DFF}%s",MissonDTO[type][NAME]);
 	switch(type){
-		case 0: ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}Æ÷ÄÏ¸ó Ä¡·á\nÆ÷ÄÏ¸ó ÇÕ¼º\nÆ÷ÄÏ¸ó ºĞ¾ç\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
-		case 1: ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}¾ÆÀÌÅÛ ±¸¸Å\n¾ÆÀÌÅÛ ÆÇ¸Å\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
-		case 2: ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Â÷·® ±¸¸Å\nÂ÷·® ÆÇ¸Å\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
+		case 0: ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}í¬ì¼“ëª¬ ì¹˜ë£Œ\ní¬ì¼“ëª¬ í•©ì„±\ní¬ì¼“ëª¬ ë¶„ì–‘\nëŒ€í™”(í€˜ìŠ¤íŠ¸)","í™•ì¸", "ì·¨ì†Œ");
+		case 1: ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}ì•„ì´í…œ êµ¬ë§¤\nì•„ì´í…œ íŒë§¤\nëŒ€í™”(í€˜ìŠ¤íŠ¸)","í™•ì¸", "ì·¨ì†Œ");
+		case 2: ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}ì°¨ëŸ‰ êµ¬ë§¤\nì°¨ëŸ‰ íŒë§¤\nëŒ€í™”(í€˜ìŠ¤íŠ¸)","í™•ì¸", "ì·¨ì†Œ");
 	}
 }
 
@@ -1254,7 +1202,7 @@ public shotBallManager(playerid,Float:distance){
 }
 
 stock checkBall(playerid, Float:distance,Float:ballDistance){
-	if(distance > ballDistance) return SendClientMessage(playerid,col_sys,"		ÁÖº¯¿¡ Æ÷ÄÏ¸óÀÌ ¾ø½À´Ï´Ù.");
+	if(distance > ballDistance) return SendClientMessage(playerid,col_sys,"		ì£¼ë³€ì— í¬ì¼“ëª¬ì´ ì—†ìŠµë‹ˆë‹¤.");
 	new str[50];
 	format(str,sizeof(str),"%s is caught!",UserDTO[playerid][NAME]);
 	foreach (new i : Player){
@@ -1266,10 +1214,10 @@ stock checkBall(playerid, Float:distance,Float:ballDistance){
 }
 
 stock shotBallInfo(playerid){
-	new memo[200]={"{FFFFFF}¼÷·Ãµµ\t+100\t\tÆ÷ÄÏº¼ +1\n\n%s È¹µæ\t\tEXP +100\n´º Æ÷ÄÏ¸ó\t\tEXP +500\n\nÇÕ°è\t\t\tEXP +600"};
+	new memo[200]={"{FFFFFF}ìˆ™ë ¨ë„\t+100\t\tí¬ì¼“ë³¼ +1\n\n%s íšë“\t\tEXP +100\në‰´ í¬ì¼“ëª¬\t\tEXP +500\n\ní•©ê³„\t\t\tEXP +600"};
 	new str[252];
 	format(str,sizeof(str),memo,poketMonName[poketmonType]);
-	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Æ÷ÄÏ¸ó ¸Å´ÏÀú",str,"È®ÀÎ","");
+	ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}í¬ì¼“ëª¬ ë§¤ë‹ˆì €",str,"í™•ì¸","");
 	UserDTO[playerid][EXP]++;
  	SetPlayerScore(playerid, GetPlayerScore(playerid) + 1);
 	isShotBall=false;
@@ -1280,9 +1228,9 @@ stock shotBallInfo(playerid){
 
 public OnPlayerCommandText(playerid, cmdtext[]){
 	showAudio(playerid, 1);
-	if (strcmp("/Ã¼ÀÎÁö", cmdtext, true, 10) == 0){
+	if (strcmp("/ì²´ì¸ì§€", cmdtext, true, 10) == 0){
 		changePoketball();
-		SendClientMessageToAll(col_sys, "¸ó½ºÅÍ Ã¼ÀÎÁö");
+		SendClientMessageToAll(col_sys, "ëª¬ìŠ¤í„° ì²´ì¸ì§€");
 		return 1;
 	}
 	
@@ -1299,24 +1247,24 @@ public OnPlayerCommandText(playerid, cmdtext[]){
         return 1;
     }
 
-  	if (strcmp("/Æ÷ÄÏ¸ó", cmdtext, true, 10) == 0 || strcmp("/p", cmdtext, true, 10) == 0){
+  	if (strcmp("/í¬ì¼“ëª¬", cmdtext, true, 10) == 0 || strcmp("/p", cmdtext, true, 10) == 0){
 		new sumText[624];
 		format(sumText, sizeof(sumText), "%s",getPoketMonInfo(playerid));
-		ShowPlayerDialog(playerid, poketmon_Bag, DIALOG_STYLE_LIST, "{8D8DFF}Æ÷ÄÏ¸ó ¸Å´ÏÀú",sumText,"È®ÀÎ", "Ãë¼Ò");
+		ShowPlayerDialog(playerid, poketmon_Bag, DIALOG_STYLE_LIST, "{8D8DFF}í¬ì¼“ëª¬ ë§¤ë‹ˆì €",sumText,"í™•ì¸", "ì·¨ì†Œ");
 		return 1;
 	}
-	if (strcmp("/°¡¹æ", cmdtext, true, 10) == 0 || strcmp("/b", cmdtext, true, 10) == 0){
+	if (strcmp("/ê°€ë°©", cmdtext, true, 10) == 0 || strcmp("/b", cmdtext, true, 10) == 0){
 
 		new sumText[624];
 		format(sumText, sizeof(sumText), "%s",getBagInfo(playerid));
-		ShowPlayerDialog(playerid, player_Bag, DIALOG_STYLE_LIST, "{8D8DFF}°¡¹æ",sumText,"È®ÀÎ", "Ãë¼Ò");
+		ShowPlayerDialog(playerid, player_Bag, DIALOG_STYLE_LIST, "{8D8DFF}ê°€ë°©",sumText,"í™•ì¸", "ì·¨ì†Œ");
 		return 1;
 	}
 	
-  	if (strcmp("/Â÷", cmdtext, true, 10) == 0 || strcmp("/v", cmdtext, true, 10) == 0){
+  	if (strcmp("/ì°¨", cmdtext, true, 10) == 0 || strcmp("/v", cmdtext, true, 10) == 0){
 		new sumText[200];
 		format(sumText, sizeof(sumText), "%s",getCarInfo(playerid));
-		ShowPlayerDialog(playerid, car_Bag, DIALOG_STYLE_LIST, "{8D8DFF}Â÷°í ¸Å´ÏÀú",sumText,"È®ÀÎ", "Ãë¼Ò");
+		ShowPlayerDialog(playerid, car_Bag, DIALOG_STYLE_LIST, "{8D8DFF}ì°¨ê³  ë§¤ë‹ˆì €",sumText,"í™•ì¸", "ì·¨ì†Œ");
         return 1;
     }
     
@@ -1331,7 +1279,7 @@ stock getPoketMonInfo(playerid){
 		if(PoketmonDTO[playerid][i][ID]==0){
 			format(Line[i], 60, "");
 		}else{
-		    format(Line[i], 60, "º°¸í: %s\t Æ÷ÄÏ¸ó: %s CP: %d",poketMonNameHan[PoketmonDTO[playerid][i][TYPE]],PoketmonDTO[playerid][i][MONNAME],PoketmonDTO[playerid][i][CP]);
+		    format(Line[i], 60, "ë³„ëª…: %s\t í¬ì¼“ëª¬: %s CP: %d",poketMonNameHan[PoketmonDTO[playerid][i][TYPE]],PoketmonDTO[playerid][i][MONNAME],PoketmonDTO[playerid][i][CP]);
 		}
 	}
 	format(sumText, sizeof(sumText), "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",Line[0],Line[1],Line[2],Line[3],Line[4],Line[5],Line[6],Line[7],Line[8],Line[9]);
@@ -1361,7 +1309,7 @@ stock getBagInfo(playerid){
 		if(ItemDTO[playerid][i][ID]==0){
 			format(Line2[i], 60, "");
 		}else{
-		    format(Line2[i], 60, "%s (¼ö·®: %d)",itemName[ItemDTO[playerid][i][TYPE]],ItemDTO[playerid][i][AMOUNT]);
+		    format(Line2[i], 60, "%s (ìˆ˜ëŸ‰: %d)",itemName[ItemDTO[playerid][i][TYPE]],ItemDTO[playerid][i][AMOUNT]);
 		}
 	}
 	format(sumText, sizeof(sumText), "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",Line2[0],Line2[1],Line2[2],Line2[3],Line2[4],Line2[5],Line2[6],Line2[7],Line2[8],Line2[9]);
@@ -1369,7 +1317,7 @@ stock getBagInfo(playerid){
 }
 
 stock rideCar(playerid,num,model){
-	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,col_sys,"		ÀÌ¹Ì Â÷·®¿¡ Å¾½ÂÁßÀÔ´Ï´Ù.");
+	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,col_sys,"		ì´ë¯¸ ì°¨ëŸ‰ì— íƒ‘ìŠ¹ì¤‘ì…ë‹ˆë‹¤.");
 	new Float:pos[4];
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
 	GetPlayerFacingAngle(playerid, pos[3]);
@@ -1582,9 +1530,9 @@ stock showBallImg(playerid){
 }
 
 stock loadMisson(){
-	missonInit("Æ÷ÄÏ¸ó ¼¾ÅÍ",1910.2273,-1714.3197,13.3307);
-	missonInit("¾ÆÀÌÅÛ »óÁ¡",1909.9907,-1707.3611,13.3251);
-	missonInit("Â÷·® ÆÇ¸ÅÁ¡",1909.9747,-1700.0070,13.3236);
+	missonInit("í¬ì¼“ëª¬ ì„¼í„°",1910.2273,-1714.3197,13.3307);
+	missonInit("ì•„ì´í…œ ìƒì ",1909.9907,-1707.3611,13.3251);
+	missonInit("ì°¨ëŸ‰ íŒë§¤ì ",1909.9747,-1700.0070,13.3236);
 }
 
 stock missonInit(name[24],Float:pos_x,Float:pos_y,Float:pos_z){
