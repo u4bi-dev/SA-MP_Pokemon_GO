@@ -54,7 +54,7 @@ CLEAN INT(3) NOT NULL,
 FUNNY INT(3) NOT NULL
 ) ENGINE=INNODB;
 
-*/
+ */
 
 main(){}
 
