@@ -1123,7 +1123,7 @@ stock inCar(playerid,vehicleid){
 
 stock checkWarp(playerid){
    WarpDTO[playerid][INCAR]=true;
-   
+
    if(!WarpDTO[playerid][CHECK]){
       new carid = GetPlayerVehicleID(playerid);
       if(WarpDTO[playerid][CARID] != carid && carid != 0)Ban(playerid);
