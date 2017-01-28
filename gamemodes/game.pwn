@@ -192,34 +192,34 @@ new TextDrawBall[USED_BALL][td_ball];
 
 new carModelNum[8]={510,468,522,496,562,541,487,519};
 new carName[8][20]={
-  "산악자전거",
-  "산체스",
-  "NRG 바이크",
-  "블리스타 컴팩트",
-  "엘리지",
-  "뷸렛",
-  "매버릭 헤리콥터",
-  "샤멜 비행기"
+  "Mountain Bike",
+  "Sanchez",
+  "NRG-Bike",
+  "Blista Compact",
+  "Elegy",
+  "Bullet",
+  "Maverick",
+  "Shamal"
 };
 new carPrice[8]={6000,22000,46000,25000,430000,470000,110000,160000};
 
 new carMemo[1][200]={
-  "가격 : 6000원\n\n효과 : 걸어다니는 것보다 빠르게 다닐 수 있다.\n관동지방 태초마을 30년지기 자전거 장인이 만든 산악형 MTB자전거"
+  "price : $6000\n\neffect : You can go faster than walking.\nMountain-type MTB bicycle made by craftsmen 30 years old village in Kita-town,"
 };
 
 new itemMemo[4][200]={
-  "가격 : 100원\n\n효과 : 야생 포켓몬에게 사용하여 포켓몬을 포획한다.\n포획률 : 포획률: x 1.0\n포획반경 : 0.0m~0.9m\n야생 포켓몬에게 던져서 잡기 위한 볼 캡슐식으로 되어 있다.",
-  "가격 : 600원\n\n효과 : 야생 포켓몬에게 사용하여 포켓몬을 포획한다.\n포획률 : 포획률: x 1.5\n포획반경 : 0.0m~1.9m\n몬스터볼보다도 더욱 포켓몬을 잡기 쉬워진 약간 성능이 좋은 볼",
-  "가격 : 1200원\n\n효과 : 야생 포켓몬에게 사용하여 포켓몬을 포획한다.\n포획률 : 포획률: x 2.0\n포획반경 : 0.0m~2.9m\n울트라볼보다도 더욱 포켓몬을 잡기 쉬워진 매우 성능이 좋은 볼",
-  "가격 : 판매불가\n\n효과 : 야생 포켓몬에게 사용하여 포켓몬을 포획한다.\n포획률 : 계산식 없이 100퍼센트 포획\n포획반경 : 0.0m~4.9m\n야생 포켓몬을 반드시 잡을 수 있는 최고 성능의 볼"
+  "price : $100\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate :  rate x 1.0\nTake radius : 0.0m~0.9m\nIt is a ball capsule type for throwing and catching to wild Pokemon.",
+  "price : $600\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate :  rate x 1.5\nTake radius : 0.0m~1.9m\nPokemon is easier to catch than monster ball, slightly better performance ball",
+  "price : $1200\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate : rate x 2.0\nTake radius : 0.0m~2.9m\nA very good ball that is easier to catch Pokemon than Ultra Ball",
+  "price : Not Available\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate : 100 percent capture without calculation\n포획반경 : 0.0m~4.9m\nHighest performance ball that can catch wild Pokemon"
 };
 
 new ballObjNum[4]={2997,2996,3106,2998};
 new itemName[4][20]={
-  "포켓볼",
-  "그레이트볼",
-  "울트라볼",
-  "마스터볼"
+  "Poket Ball",
+  "Great Ball",
+  "Ultra Ball",
+  "Master Ball"
 };
 
 new itemPrice[4]={
@@ -313,90 +313,6 @@ new poketMonName[81][20]={
   "Naelumi"
 };
 
-new poketMonNameHan[81][20]={
-  "피카츄",
-  "파이리",
-  "꼬부기",
-  "탕구리",
-  "푸푸린",
-  "이브이",
-  "구구",
-  "고라파덕",
-  "토게피",
-  "발챙이",
-  "이상해씨",
-  "모다피",
-  "코일",
-  "꼬렛",
-  "팬텀",
-  "메타몽",
-  "뿔총",
-  "부스터",
-  "찌리리공",
-  "또도가스",
-  "냐옹이",
-  "꼬마돌",
-  "깨비참",
-  "고오스",
-  "가디",
-  "홍수몬",
-  "프테라",
-  "프리져",
-  "폴리곤",
-  "포니타",
-  "파오리",
-  "투구",
-  "크랩",
-  "콘팡",
-  "콘치",
-  "켄타로우스",
-  "캥카",
-  "캐터피",
-  "캐이시",
-  "질퍽이",
-  "쥬피썬더",
-  "쥬레곤",
-  "쥬베스",
-  "잠만보",
-  "잉어킹",
-  "왕눈해",
-  "에레브",
-  "야돈",
-  "암나이트",
-  "알통몬",
-  "아보크",
-  "아라리",
-  "쏘드라",
-  "썬더",
-  "신뇽",
-  "식스테일",
-  "슬리프",
-  "스라크",
-  "셀러",
-  "샤미드",
-  "삐삐",
-  "쁘사이져",
-  "뿔카노",
-  "별가사리",
-  "미뇽",
-  "뮤츠",
-  "모래두지",
-  "망키",
-  "마임맨",
-  "마그마",
-  "루주라",
-  "롱스톤",
-  "럭키",
-  "라프라스",
-  "뚜벅쵸",
-  "디그다",
-  "두두",
-  "덩쿠리",
-  "니도란(남)",
-  "니도란(여)",
-  "내루미"
-};
-
 public OnGameModeInit(){
 
   mode_init();
@@ -481,8 +397,8 @@ stock mysql_init(){
   #define sql_pass 	"root940617"
   mysql = mysql_connect(sql_host, sql_user, sql_db, sql_pass);
   mysql_set_charset("euckr");
-  if(mysql_errno(mysql) != 0) print("DB 연결이 안됨.");
-  else print("DB 연결됨.");
+  if(mysql_errno(mysql) != 0) print("Not DB connection.");
+  else print("DB connected.");
 }
 
 public OnGameModeExit(){
@@ -539,8 +455,11 @@ stock startConnect(playerid){
 }
 
 stock helpInfo(playerid){
-  new memo[400]={"{8D8DFF}공지사항{FFFFFF}\n오브젝트 제작자 한분을 찾습니다. (업무명 : 포켓몬센터 제작)\n좋은 컨텐츠 기획 아이디어 도움을 주실분들을 찾습니다.\n참여도에 따라 차 후 소정의 혜택 지급\n\n참여 카톡 오픈채팅 : https://open.kakao.com/o/gpZ9Qqm\n\n{8D8DFF}명령어 안내{FFFFFF}\n\n/가방(/b) /차(/v) /포켓몬(/p)\n\n"};
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}포켓몬 매니저",memo,"확인","");
+  new memo[400]={"{8D8DFF}공지사항{FFFFFF}\n
+Find one of the object creators. (Title: Pokemon Center Production)\n
+Good content planning ideas Find people to help.\nDepending on the level of participation,\n\nParticipate in chat open chat : https://open.kakao.com/o/gpZ9Qqm\n\n{8D8DFF}
+Instructions{FFFFFF}\n\n/bag(/b) /v /pokemon(/p)\n\n"};
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}pokemon manager",memo,"Confirm","");
 }
 
 stock joinController(playerid){
@@ -555,9 +474,9 @@ stock joinController(playerid){
   if(rows){
     UserDTO[playerid][ID] = cache_get_field_content_int(0, "ID");
     cache_get_field_content(0, "PASS", UserDTO[playerid][PASS], mysql, 24);
-    ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}계정관리 매니저", "{FFFFFF}비밀번호를 입력해주세요.", "로그인", "나가기");
+    ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}Account Manager", "{FFFFFF}Please enter a password.", "Login", "Exit");
   }else{
-    ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}계정관리 매니저", "{FFFFFF}비밀번호를 입력해주세요.", "회원가입", "나가기");
+    ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}Account Manager", "{FFFFFF}Please enter a password.", "Regist", "Exit");
   }
 }
 
@@ -567,16 +486,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]){
       case d_Log:joinDialog(playerid,response,inputtext,0);
       case d_Reg:joinDialog(playerid,response,inputtext,1);
       case poketmon_Bag:{
-      if(PoketmonDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		포켓몬이 없습니다.");
+      if(PoketmonDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		There is no Pokemon.");
       bagDialog(playerid,response,listitem,0);
     }
       case player_Bag:{
-      if(ItemDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		아이템이 없습니다.");
+      if(ItemDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		There are no items.");
       bagDialog(playerid,response,listitem,1);
     }
       case slot_bag:slotEventItem(playerid,response,listitem);
       case car_Bag:{
-      if(CarDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		차량이 없습니다.");
+      if(CarDTO[playerid][0][ID]==0) return SendClientMessage(playerid,col_sys,"		There is no vehicle.");
       carDialog(playerid,response,listitem);
     }
       case slot_car:slotEventCar(playerid,response,listitem);
@@ -603,7 +522,7 @@ stock mediDialog(playerid,response,listitem,type){
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}포켓몬 치료\n포켓몬 합성\n포켓몬 분양\n대화(퀘스트)","확인", "취소");
+    ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}Pokemon Medical\nPokemon Synthesis\nPokemon Sale\nConversation(quest)","Confirm", "Cancel");
   }
 }
 
@@ -613,7 +532,8 @@ stock itemShopDialog(playerid,response,listitem,type){
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}아이템 구매\n아이템 판매\n대화(퀘스트)","확인", "취소");
+    ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}
+Purchase Items\nItem sales\nConversation(quest)","Confirm", "Cancel");
   }
 }
 
@@ -623,7 +543,7 @@ stock carShopDialog(playerid,response,listitem,type){
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}차량 구매\n차량 판매\n대화(퀘스트)","확인", "취소");
+    ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Buying a Vehicle\nVehicle sales\nConversation(quest)","Confirm", "Cancel");
   }
 }
 
@@ -649,19 +569,19 @@ stock selectMadi(playerid,listitem){
 }
 
 stock poketmonCare(playerid,str[]){
-  ShowPlayerDialog(playerid, medi_care, DIALOG_STYLE_LIST, "포켓몬 치료",str,"확인", "취소");
+  ShowPlayerDialog(playerid, medi_care, DIALOG_STYLE_LIST, "Pokemon Medical",str,"Confirm", "Cancel");
 }
 
 stock poketmonMix(playerid,str[]){
-  ShowPlayerDialog(playerid, medi_mix, DIALOG_STYLE_LIST, "포켓몬 합성",str,"확인", "취소");
+  ShowPlayerDialog(playerid, medi_mix, DIALOG_STYLE_LIST, "Pokemon Synthesis",str,"Confirm", "Cancel");
 }
 
 stock poketmonSell(playerid,str[]){
-  ShowPlayerDialog(playerid, medi_sell, DIALOG_STYLE_LIST, "포켓몬 분양",str,"확인", "취소");
+  ShowPlayerDialog(playerid, medi_sell, DIALOG_STYLE_LIST, "Pokemon Sale",str,"Confirm", "Cancel");
 }
 
 stock poketmonQwest(playerid){
-  ShowPlayerDialog(playerid, medi_qwest, DIALOG_STYLE_LIST, "포켓몬 퀘스트","경험에 맞는 퀘스트가 없습니다.\n","확인", "취소");
+  ShowPlayerDialog(playerid, medi_qwest, DIALOG_STYLE_LIST, "Pokemon Quest","There are no quests that match your experience.\n","Confirm", "Cancel");
 }
 
 stock selectItemShop(playerid,listitem){
@@ -674,18 +594,19 @@ stock selectItemShop(playerid,listitem){
 
 stock itemShopBuy(playerid){
   new sumText[624];
-  format(sumText, sizeof(sumText), "%s (가격 : %d원)\n%s (가격 : %d원)\n%s (가격 : %d원)\n%s (가격 : %d원)\n",itemName[0],itemPrice[0],itemName[1],itemPrice[1],itemName[2],itemPrice[2],itemName[3],itemPrice[3]);
-  ShowPlayerDialog(playerid, item_buy, DIALOG_STYLE_LIST, "아이템 구매",sumText,"확인", "취소");
+  format(sumText, sizeof(sumText), "%s (price : $%d)\n%s (price : $%d)\n%s (price : $%d)\n%s (price : $%d)\n",itemName[0],itemPrice[0],itemName[1],itemPrice[1],itemName[2],itemPrice[2],itemName[3],itemPrice[3]);
+  ShowPlayerDialog(playerid, item_buy, DIALOG_STYLE_LIST, "Purchase items",sumText,"Confirm", "Cancel");
 }
 
 stock itemShopSell(playerid){
   new sumText[624];
   format(sumText, sizeof(sumText), "%s",getBagInfo(playerid));
-  ShowPlayerDialog(playerid, item_sell, DIALOG_STYLE_LIST, "아이템 판매",sumText,"확인", "취소");
+  ShowPlayerDialog(playerid, item_sell, DIALOG_STYLE_LIST, "Item Sales",sumText,"Confirm", "Cancel");
 }
 
 stock itemShopQwest(playerid){
-  ShowPlayerDialog(playerid, item_qwest, DIALOG_STYLE_LIST, "아이템 퀘스트","경험에 맞는 퀘스트가 없습니다.\n","확인", "취소");
+  ShowPlayerDialog(playerid, item_qwest, DIALOG_STYLE_LIST, "
+Item Quest","There are no quests to suit your experience\n","Confirm", "Cancel");
 }
 
 stock selectCarShop(playerid,listitem){
@@ -698,7 +619,7 @@ stock selectCarShop(playerid,listitem){
 
 stock carShopBuy(playerid){
   new sumText[624];
-  format(sumText, sizeof(sumText), "%s Model: %d \t(가격 : %d원)\n%s Model: %d (가격 : %d원)\n%s Model: %d (가격 : %d원)\n%s Model: %d (가격 : %d원)\n%s Model: %d (가격 : %d원)\n%s Model: %d (가격 : %d원)\n%s Model: %d (가격 : %d원)\n%s Model: %d (가격 : %d원)\n",
+  format(sumText, sizeof(sumText), "%s Model: %d \t(price : $%d)\n%s Model: %d (price : $%d)\n%s Model: %d (price : $%d)\n%s Model: %d (price : $%d)\n%s Model: %d (price : $%d)\n%s Model: %d (price : $%d)\n%s Model: %d (price : $%d)\n%s Model: %d (price : $%d)\n",
   carName[0],carModelNum[0],carPrice[0],
   carName[1],carModelNum[1],carPrice[1],
   carName[2],carModelNum[2],carPrice[2],
@@ -708,17 +629,17 @@ stock carShopBuy(playerid){
   carName[6],carModelNum[6],carPrice[6],
   carName[7],carModelNum[7],carPrice[7]
   );
-  ShowPlayerDialog(playerid, car_buy, DIALOG_STYLE_LIST, "차량 구매",sumText,"확인", "취소");
+  ShowPlayerDialog(playerid, car_buy, DIALOG_STYLE_LIST, "Buying a vehicle",sumText,"Confirm", "Cancel");
 }
 
 stock carShopSell(playerid){
   new sumText[200];
   format(sumText, sizeof(sumText), "%s",getCarInfo(playerid));
-  ShowPlayerDialog(playerid, car_sell, DIALOG_STYLE_LIST, "차량 판매",sumText,"확인", "취소");
+  ShowPlayerDialog(playerid, car_sell, DIALOG_STYLE_LIST, "Vehicle sales",sumText,"Confirm", "Cancel");
 }
 
 stock carShopQwest(playerid){
-  ShowPlayerDialog(playerid, car_qwest, DIALOG_STYLE_LIST, "차량 퀘스트","경험에 맞는 퀘스트가 없습니다.\n","확인", "취소");
+  ShowPlayerDialog(playerid, car_qwest, DIALOG_STYLE_LIST, "Vehicle Quest","There are no quests that match your experience.\n","Confirm", "Cancel");
 }
 
 
@@ -733,7 +654,7 @@ stock selectCar(playerid,num){
   IngameDTO[playerid][FORWARD]=num;
   new carNum=CarDTO[playerid][num][MODEL];
   format(str, sizeof(str),"{8D8DFF}%s (Model: %d)",carName[carNum],carModelNum[carNum]);
-  ShowPlayerDialog(playerid, slot_car, DIALOG_STYLE_LIST, str,"사용\n넣기\n정보","확인", "취소");
+  ShowPlayerDialog(playerid, slot_car, DIALOG_STYLE_LIST, str,"use\nInsert\nInformation","Confirm", "Cancel");
 }
 
 stock slotEventCar(playerid,response,listitem){
@@ -766,7 +687,7 @@ stock infoCar(playerid,num){
 }
 
 stock selectCarInfo(playerid,num){
-  new memo[300]={"{FFFFFF}차량 정보 : %s(Model : %d)\n\n{8D8DFF}상세설명{FFFFFF}\n\n%s\n\n"};
+  new memo[300]={"{FFFFFF}Vehicle Information : %s(Model : %d)\n\n{8D8DFF}detailed description{FFFFFF}\n\n%s\n\n"};
   new str[300];
   new carNum=CarDTO[playerid][num][MODEL];
 
@@ -775,7 +696,7 @@ stock selectCarInfo(playerid,num){
   carModelNum[carNum],
   carMemo[carNum]
   );
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}포켓몬 매니저",str,"확인","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
 }
 
 stock bagDialog(playerid,response,listitem,type){
@@ -797,7 +718,7 @@ stock selectInventory(playerid,num){
   IngameDTO[playerid][FORWARD]=ItemDTO[playerid][num][TYPE];
   IngameDTO[playerid][ITEAMNUM]=IngameDTO[playerid][FORWARD];
   format(str, sizeof(str),"{8D8DFF}%s",itemName[IngameDTO[playerid][FORWARD]]);
-  ShowPlayerDialog(playerid, slot_bag, DIALOG_STYLE_LIST, str,"사용\n넣기\n정보","확인", "취소");
+  ShowPlayerDialog(playerid, slot_bag, DIALOG_STYLE_LIST, str,"use\nInsert\nInformation","Confirm", "Cancel");
 }
 
 stock slotEventItem(playerid,response,listitem){
@@ -814,10 +735,10 @@ stock takeItem(playerid,num){
   switch(num){
       case 0..3:
       {
-      if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		이미 몬스터볼을 꺼내셨습니다.");
+      if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		You have already taken out the monster ball.");
       openPoketball(playerid,num);
       new str[126];
-      format(str, sizeof(str),"		가방에서 %s을(를) 꺼낸다.",itemName[num]);
+      format(str, sizeof(str),"		Remove [%s] from your bag.",itemName[num]);
       SendClientMessage(playerid,col_sys,str);
       }
   }
@@ -828,9 +749,9 @@ stock putItem(playerid,num){
   switch(num){
       case 0..3:
       {
-      if(IngameDTO[playerid][ITEAMNUM] != num) return SendClientMessage(playerid,col_sys,"		몬스터볼을 꺼내지 않았습니다.");
-      if(IngameDTO[playerid][ISBALL] == false) return SendClientMessage(playerid,col_sys,"		몬스터볼을 꺼내지 않았습니다.");
-      SendClientMessage(playerid,col_sys,"		몬스터볼을 가방에 넣는다.");
+      if(IngameDTO[playerid][ITEAMNUM] != num) return SendClientMessage(playerid,col_sys,"		I did not pull out the monster ball.");
+      if(IngameDTO[playerid][ISBALL] == false) return SendClientMessage(playerid,col_sys,"		I did not pull out the monster ball.");
+      SendClientMessage(playerid,col_sys,"		Put the monster ball into the bag.");
       closePoketBall(playerid);
     }
   }
@@ -842,21 +763,22 @@ stock infoItem(playerid,num){
 }
 
 stock selectItemInfo(playerid,num){
-  new memo[300]={"{FFFFFF}아이템 정보 : %s\n\n{8D8DFF}상세설명{FFFFFF}\n\n%s\n\n"};
+  new memo[300]={"{FFFFFF}Item Information : %s\n\n{8D8DFF}detailed description{FFFFFF}\n\n%s\n\n"};
   new str[300];
   format(str,sizeof(str),memo,
   itemName[num],
   itemMemo[num]
   );
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}포켓몬 매니저",str,"확인","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
 }
 
 stock selectPoketMon(playerid,num){
-  new memo[300]={"{FFFFFF}별명 : %s\n포켓몬명 : %s\nCP점수 : %d\n\n{8D8DFF}배틀기록{FFFFFF}\n승리 : %d\t패배 : %d\n\n{8D8DFF}상태정보{FFFFFF}\n건강도 : %d\n목마름 : %d\n포만감 : %d\n피곤함 : %d\n청결도 : %d\n즐거움 : %d\n\n\n{8D8DFF}포켓몬은 인포웹에서 훈련시킬 수 있습니다.\n{FFFFFF}sundayplay.kr"};
+  new memo[300]={"{FFFFFF}Nickname : %s\nPokemon name : %s\nCP Score : %d\n\n{8D8DFF}Battle History{FFFFFF}\nWin : %d\tLoss : %d\n\n{8D8DFF}Status information{FFFFFF}\nHealth : %d\nThirst : %d\nSatiety : %d\nTired : %d\nCleanliness : %d\n
+joy : %d\n\n\n{8D8DFF}Pokemon can be trained on InfoWeb."};
   new str[300];
   format(str,sizeof(str),memo,
   PoketmonDTO[playerid][num][MONNAME],
-  poketMonNameHan[PoketmonDTO[playerid][num][TYPE]],
+  poketMonName[PoketmonDTO[playerid][num][TYPE]],
   PoketmonDTO[playerid][num][CP],
   PoketmonDTO[playerid][num][WIN],
   PoketmonDTO[playerid][num][LOSE],
@@ -867,7 +789,7 @@ stock selectPoketMon(playerid,num){
   PoketmonDTO[playerid][num][CLEAN],
   PoketmonDTO[playerid][num][FUNNY]
   );
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}포켓몬 매니저",str,"확인","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
 }
 
 stock joinDialog(playerid,response,inputtext[],type){
@@ -878,11 +800,11 @@ stock joinDialog(playerid,response,inputtext[],type){
         LoadDB(playerid);
         IngameDTO[playerid][LOGIN]=true;
 
-        }else ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}계정관리 매니저", "{FFFFFF}비밀번호가 틀립니다.", "로그인", "나가기");
+        }else ShowPlayerDialog(playerid, d_Log, DIALOG_STYLE_PASSWORD, "{8D8DFF}Account Manager", "{FFFFFF}The password is incorrect.", "Login", "Exit");
     }
     case 1:{
-          if(strlen(inputtext) > 24) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}계정관리 매니저", "{FFFFFF}24자 이하의 비밀번호를 입력해주세요.", "회원가입", "나가기");
-        if(strlen(inputtext) < 6) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}계정관리 매니저", "{FFFFFF}6자 이상의 비밀번호를 입력해주세요.", "회원가입", "나가기");
+          if(strlen(inputtext) > 24) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}Account Manager", "{FFFFFF}Please enter a password of 24 characters or less.", "Regist", "Exit");
+        if(strlen(inputtext) < 6) return ShowPlayerDialog(playerid, d_Reg, DIALOG_STYLE_PASSWORD, "{8D8DFF}Account Manager", "{FFFFFF}Please enter more than 6 characters.", "Regist", "Exit");
         InsertLogAdapter(playerid,inputtext);
       IngameDTO[playerid][LOGIN]=true;
     }
@@ -890,7 +812,7 @@ stock joinDialog(playerid,response,inputtext[],type){
   return 1;
 }
 stock LoadDB(playerid){
-  print("\n유저로그 불러옴");
+  print("\nUser log loaded");
   new query[200];
   mysql_format(mysql, query, sizeof(query), "SELECT * FROM `DMSERVER_TABLE` WHERE `ID` = %d LIMIT 1",UserDTO[playerid][ID]);
   mysql_query(mysql, query, true);
@@ -920,7 +842,7 @@ stock LoadDB(playerid){
   }
   SetSpawnInfo(playerid, UserDTO[playerid][TEAM], UserDTO[playerid][SKIN], UserDTO[playerid][POS_X], UserDTO[playerid][POS_Y], UserDTO[playerid][POS_Z], UserDTO[playerid][ANGLE], 0, 0, 0, 0, 0, 0);
   SpawnPlayer(playerid);
-  SendClientMessage(playerid,col_sys,"		당신의 인포웹 접근권한 핀코드는 23552입니다.");
+  SendClientMessage(playerid,col_sys,"		The PIN code for your InfoWeb access right is 23552.");
 }
 
 stock InsertLogAdapter(playerid,inputtext[]){
@@ -939,7 +861,7 @@ stock InsertLogAdapter(playerid,inputtext[]){
 
   stock InsertDB(playerid){
 
-    print("\n유저로그 생성");
+    print("\nCreate user log");
     new query[400];
     new sqlSum[400];
     format(sqlSum, sizeof(sqlSum), "%s%s", sql[0],sql[1]);
@@ -957,7 +879,7 @@ stock InsertLogAdapter(playerid,inputtext[]){
     UserDTO[playerid][ID] = cache_insert_id();
     SetSpawnInfo(playerid, UserDTO[playerid][TEAM], UserDTO[playerid][SKIN], UserDTO[playerid][POS_X], UserDTO[playerid][POS_Y], UserDTO[playerid][POS_Z], UserDTO[playerid][ANGLE], 0, 0, 0, 0, 0, 0);
     SpawnPlayer(playerid);
-    SendClientMessage(playerid,col_sys,"		당신의 인포웹 접근권한 핀코드는 23552입니다.");
+    SendClientMessage(playerid,col_sys,"		The PIN code for your InfoWeb access right is 23552.");
   }
 
 stock SpawnInit(playerid){
@@ -992,7 +914,7 @@ stock poketmonInit(playerid,poketmonid,type,cp,win,lose,health,thirst,hunger,tir
 
   PoketmonDTO[playerid][num][ID]=poketmonid;
   PoketmonDTO[playerid][num][TYPE]=type;
-  format(PoketmonDTO[playerid][num][MONNAME], 24,"%s",poketMonNameHan[PoketmonDTO[playerid][num][TYPE]]);
+  format(PoketmonDTO[playerid][num][MONNAME], 24,"%s",poketMonName[PoketmonDTO[playerid][num][TYPE]]);
   PoketmonDTO[playerid][num][CP]=cp;
   PoketmonDTO[playerid][num][WIN]=win;
   PoketmonDTO[playerid][num][LOSE]=lose;
@@ -1053,7 +975,7 @@ public OnPlayerDisconnect(playerid, reason){
   return 1;
 }
 
-/*HACK : 초기화*/
+/*HACK : Data init : later Code repack optimization*/
 stock UserLogInit(playerid){
   new temp1[USER];
   new temp2[CAR];
@@ -1100,7 +1022,7 @@ stock PutLogDB(playerid){
   UserDTO[playerid][ID]
   );
   mysql_query(mysql, query, true);
-  SendClientMessage(playerid,col_sys, "		저장되었습니다.");
+  SendClientMessage(playerid,col_sys, "		Saved.");
   return 1;
 }
 
@@ -1124,10 +1046,7 @@ stock inCar(playerid,vehicleid){
 
 stock checkWarp(playerid){
    WarpDTO[playerid][INCAR]=true;
-   new msg[32];
-   format(msg,sizeof(msg), "정상탑승 : %s", (WarpDTO[playerid][CHECK]) ? ("맞음") : ("아님"));
-   SendClientMessage(playerid, -1, msg);
-
+  
    if(!WarpDTO[playerid][CHECK]){
       new carid = GetPlayerVehicleID(playerid);
       if(WarpDTO[playerid][CARID] != carid && carid != 0)Ban(playerid);
@@ -1153,7 +1072,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys){
   if(IngameDTO[playerid][ISBALL] && !IsPlayerInAnyVehicle(playerid)){
     if(PRESSED(KEY_HANDBRAKE)){
       if(distance < 1){
-        if(isShotBall==true) return SendClientMessage(playerid,col_sys,"		누군가 포켓몬을 포획중입니다.");
+        if(isShotBall==true) return SendClientMessage(playerid,col_sys,"		Someone is taking Pokemon.");
         isShotBall=true;
         IngameDTO[playerid][SHOTB]=true;
         showPoketmonPickup(playerid);
@@ -1161,14 +1080,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys){
       }
       ClearAnimations(playerid);
       ApplyAnimation(playerid,"BASEBALL","Bat_IDLE",4.1,0,1,1,1,1);
-      SendClientMessage(playerid,col_sys,"		포켓몬을 향해 조준합니다.");
+      SendClientMessage(playerid,col_sys,"		Aim at the Pokémon.");
     }
     if(RELEASED(KEY_HANDBRAKE)){
       shotBall(playerid);
       SetTimerEx("shotBallManager", 2000, false, "ii", playerid,distance);
       ApplyAnimation(playerid,"BASEBALL","Bat_M",4.1,0,1,1,1,1);
       openPoketball(playerid, 0);
-      SendClientMessage(playerid,col_sys,"		몬스터볼을 던집니다.");
+      SendClientMessage(playerid,col_sys,"		I throw a monster ball.");
       new num=IngameDTO[playerid][ITEAMNUM];
       ItemDTO[playerid][num][AMOUNT]--;
       if(ItemDTO[playerid][num][AMOUNT] == 0){
@@ -1197,9 +1116,9 @@ stock eventMisson(playerid, type){
   new str[60];
   format(str, sizeof(str),"{8D8DFF}%s",MissonDTO[type][NAME]);
   switch(type){
-    case 0: ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}포켓몬 치료\n포켓몬 합성\n포켓몬 분양\n대화(퀘스트)","확인", "취소");
-    case 1: ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}아이템 구매\n아이템 판매\n대화(퀘스트)","확인", "취소");
-    case 2: ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}차량 구매\n차량 판매\n대화(퀘스트)","확인", "취소");
+    case 0: ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}Pokemon Medical\nPokemon Synthesis\nPokemon Sale\nConversation (quest)","Confirm", "Exit");
+    case 1: ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Purchase items\nItem sales\nConversation (Quest)","Confirm", "Exit");
+    case 2: ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Buying a vehicle\nVehicle sales\nConversation (quest)","Confirm", "Exit");
   }
 }
 
@@ -1253,7 +1172,7 @@ public shotBallManager(playerid,Float:distance){
 }
 
 stock checkBall(playerid, Float:distance,Float:ballDistance){
-  if(distance > ballDistance) return SendClientMessage(playerid,col_sys,"		주변에 포켓몬이 없습니다.");
+  if(distance > ballDistance) return SendClientMessage(playerid,col_sys,"		There are no Pokemon nearby.");
   new str[50];
   format(str,sizeof(str),"%s is caught!",UserDTO[playerid][NAME]);
   foreach (new i : Player){
@@ -1265,10 +1184,10 @@ stock checkBall(playerid, Float:distance,Float:ballDistance){
 }
 
 stock shotBallInfo(playerid){
-  new memo[200]={"{FFFFFF}숙련도\t+100\t\t포켓볼 +1\n\n%s 획득\t\tEXP +100\n뉴 포켓몬\t\tEXP +500\n\n합계\t\t\tEXP +600"};
+  new memo[200]={"{FFFFFF}Proficiency\t+100\t\tPockeball +1\n\n%s Acquisition\t\tEXP +100\nNew Pokemon\t\tEXP +500\n\nSum\t\t\tEXP +600"};
   new str[252];
   format(str,sizeof(str),memo,poketMonName[poketmonType]);
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}포켓몬 매니저",str,"확인","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
   UserDTO[playerid][EXP]++;
   SetPlayerScore(playerid, GetPlayerScore(playerid) + 1);
   isShotBall=false;
@@ -1281,7 +1200,7 @@ public OnPlayerCommandText(playerid, cmdtext[]){
   showAudio(playerid, 1);
   if (strcmp("/체인지", cmdtext, true, 10) == 0){
     changePoketball();
-    SendClientMessageToAll(col_sys, "몬스터 체인지");
+    SendClientMessageToAll(col_sys, "Monster Change");
     return 1;
   }
 
@@ -1298,24 +1217,25 @@ public OnPlayerCommandText(playerid, cmdtext[]){
         return 1;
     }
 
-    if (strcmp("/포켓몬", cmdtext, true, 10) == 0 || strcmp("/p", cmdtext, true, 10) == 0){
+    if (strcmp("/pokemon", cmdtext, true, 10) == 0 || strcmp("/p", cmdtext, true, 10) == 0){
     new sumText[624];
     format(sumText, sizeof(sumText), "%s",getPoketMonInfo(playerid));
-    ShowPlayerDialog(playerid, poketmon_Bag, DIALOG_STYLE_LIST, "{8D8DFF}포켓몬 매니저",sumText,"확인", "취소");
+    ShowPlayerDialog(playerid, poketmon_Bag, DIALOG_STYLE_LIST, "{8D8DFF}Pokemon Manager",sumText,"Confirm", "Cancel");
     return 1;
   }
-  if (strcmp("/가방", cmdtext, true, 10) == 0 || strcmp("/b", cmdtext, true, 10) == 0){
+  if (strcmp("/bag, cmdtext, true, 10) == 0 || strcmp("/b", cmdtext, true, 10) == 0){
 
     new sumText[624];
     format(sumText, sizeof(sumText), "%s",getBagInfo(playerid));
-    ShowPlayerDialog(playerid, player_Bag, DIALOG_STYLE_LIST, "{8D8DFF}가방",sumText,"확인", "취소");
+    ShowPlayerDialog(playerid, player_Bag, DIALOG_STYLE_LIST, "{8D8DFF}가방",sumText,"Confirm", "Exit");
     return 1;
   }
 
-    if (strcmp("/차", cmdtext, true, 10) == 0 || strcmp("/v", cmdtext, true, 10) == 0){
+    if (strcmp("/car", cmdtext, true, 10) == 0 || strcmp("/v", cmdtext, true, 10) == 0){
     new sumText[200];
     format(sumText, sizeof(sumText), "%s",getCarInfo(playerid));
-    ShowPlayerDialog(playerid, car_Bag, DIALOG_STYLE_LIST, "{8D8DFF}차고 매니저",sumText,"확인", "취소");
+    ShowPlayerDialog(playerid, car_Bag, DIALOG_STYLE_LIST, "{8D8DFF}
+Garage manager",sumText,"Confirm", "Cancel");
         return 1;
     }
 
@@ -1330,7 +1250,7 @@ stock getPoketMonInfo(playerid){
     if(PoketmonDTO[playerid][i][ID]==0){
       format(Line[i], 60, "");
     }else{
-        format(Line[i], 60, "별명: %s\t 포켓몬: %s CP: %d",poketMonNameHan[PoketmonDTO[playerid][i][TYPE]],PoketmonDTO[playerid][i][MONNAME],PoketmonDTO[playerid][i][CP]);
+        format(Line[i], 60, "Nickname: %s\t Pokemon: %s CP: %d",poketMonName[PoketmonDTO[playerid][i][TYPE]],PoketmonDTO[playerid][i][MONNAME],PoketmonDTO[playerid][i][CP]);
     }
   }
   format(sumText, sizeof(sumText), "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",Line[0],Line[1],Line[2],Line[3],Line[4],Line[5],Line[6],Line[7],Line[8],Line[9]);
@@ -1360,7 +1280,7 @@ stock getBagInfo(playerid){
     if(ItemDTO[playerid][i][ID]==0){
       format(Line2[i], 60, "");
     }else{
-        format(Line2[i], 60, "%s (수량: %d)",itemName[ItemDTO[playerid][i][TYPE]],ItemDTO[playerid][i][AMOUNT]);
+        format(Line2[i], 60, "%s (Quantity: %d)",itemName[ItemDTO[playerid][i][TYPE]],ItemDTO[playerid][i][AMOUNT]);
     }
   }
   format(sumText, sizeof(sumText), "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",Line2[0],Line2[1],Line2[2],Line2[3],Line2[4],Line2[5],Line2[6],Line2[7],Line2[8],Line2[9]);
@@ -1368,7 +1288,7 @@ stock getBagInfo(playerid){
 }
 
 stock rideCar(playerid,num,model){
-  if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,col_sys,"		이미 차량에 탑승중입니다.");
+  if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,col_sys,"		It is already in the vehicle.");
   new Float:pos[4];
   GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
   GetPlayerFacingAngle(playerid, pos[3]);
