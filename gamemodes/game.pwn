@@ -211,7 +211,7 @@ new itemMemo[4][200]={
   "price : $100\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate :  rate x 1.0\nTake radius : 0.0m~0.9m\nIt is a ball capsule type for throwing and catching to wild Pokemon.",
   "price : $600\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate :  rate x 1.5\nTake radius : 0.0m~1.9m\nPokemon is easier to catch than monster ball, slightly better performance ball",
   "price : $1200\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate : rate x 2.0\nTake radius : 0.0m~2.9m\nA very good ball that is easier to catch Pokemon than Ultra Ball",
-  "price : Not Available\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate : 100 percent capture without calculation\n포획반경 : 0.0m~4.9m\nHighest performance ball that can catch wild Pokemon"
+  "price : Not Available\n\neffect : Pokemon is captured by using wild Pokemon.\nCapture rate : 100 percent capture without calculation\nTake radius : 0.0m~4.9m\nHighest performance ball"
 };
 
 new ballObjNum[4]={2997,2996,3106,2998};
@@ -384,9 +384,9 @@ stock textDraw_init(){
 
 stock textLabel_init(){
   for(new a = 0;a<3;a++){
-    new str[40];
-    format(str, sizeof(str),"%s (Y키)",MissonDTO[a][NAME]);
-    Create3DTextLabel(str, 0x8D8DFFFF, MissonDTO[a][POS_X], MissonDTO[a][POS_Y], MissonDTO[a][POS_Z], 7.0, 0, 0);
+    new tdstr[60];
+    format(tdstr, sizeof(tdstr),"%s (Y Key",MissonDTO[a][NAME]);
+    Create3DTextLabel(tdstr, 0x8D8DFFFF, MissonDTO[a][POS_X], MissonDTO[a][POS_Y], MissonDTO[a][POS_Z], 7.0, 0, 0);
   }
 }
 
@@ -408,10 +408,10 @@ public OnGameModeExit(){
 
 public OnPlayerText(playerid, text[]){
   if(IngameDTO[playerid][LOGIN]==true){
-    new str[200];
-    format(str,sizeof(str),"%s : %s",UserDTO[playerid][NAME], text);
-    SendClientMessageToAll(0xE6E6E6E6, str);
-    SetPlayerChatBubble(playerid, str, 0xE6E6E6E6, 10.0, 1000);
+    new tdstr[100];
+    format(tdstr,sizeof(tdstr),"%s : %s",UserDTO[playerid][NAME], text);
+    SendClientMessageToAll(0xE6E6E6E6, tdstr);
+    SetPlayerChatBubble(playerid, tdstr, 0xE6E6E6E6, 10.0, 1000);
   }
 
   return 0;
@@ -455,10 +455,7 @@ stock startConnect(playerid){
 }
 
 stock helpInfo(playerid){
-  new memo[400]={"{8D8DFF}공지사항{FFFFFF}\n
-Find one of the object creators. (Title: Pokemon Center Production)\n
-Good content planning ideas Find people to help.\nDepending on the level of participation,\n\nParticipate in chat open chat : https://open.kakao.com/o/gpZ9Qqm\n\n{8D8DFF}
-Instructions{FFFFFF}\n\n/bag(/b) /v /pokemon(/p)\n\n"};
+  new memo[400]={"{8D8DFF}Notice{FFFFFF}\nFind one of the object creators. (Title: Pokemon Center Production)\nGood content planning ideas Find people to help.\nDepending on the level of participation,\n\n{8D8DFF}Instructions{FFFFFF}\n\n/bag(/b) /v /pokemon(/p)\n\n"};
   ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}pokemon manager",memo,"Confirm","");
 }
 
@@ -517,33 +514,32 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]){
 }
 
 stock mediDialog(playerid,response,listitem,type){
-  new str[60];
-  format(str, sizeof(str),"{8D8DFF}%s",MissonDTO[0][NAME]);
+  new tdstr[60];
+  format(tdstr, sizeof(tdstr),"{8D8DFF}%s",MissonDTO[0][NAME]);
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}Pokemon Medical\nPokemon Synthesis\nPokemon Sale\nConversation(quest)","Confirm", "Cancel");
+    ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,tdstr,"{FFFFFF}Pokemon Medical\nPokemon Synthesis\nPokemon Sale\nConversation(quest)","Confirm", "Cancel");
   }
 }
 
 stock itemShopDialog(playerid,response,listitem,type){
-  new str[60];
-  format(str, sizeof(str),"{8D8DFF}%s",MissonDTO[1][NAME]);
+  new tdstr[60];
+  format(tdstr, sizeof(tdstr),"{8D8DFF}%s",MissonDTO[1][NAME]);
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}
-Purchase Items\nItem sales\nConversation(quest)","Confirm", "Cancel");
+    ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,tdstr,"{FFFFFF}Purchase Items\nItem sales\nConversation(quest)","Confirm", "Cancel");
   }
 }
 
 stock carShopDialog(playerid,response,listitem,type){
-  new str[60];
-  format(str, sizeof(str),"{8D8DFF}%s",MissonDTO[2][NAME]);
+  new tdstr[60];
+  format(tdstr, sizeof(tdstr),"{8D8DFF}%s",MissonDTO[2][NAME]);
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Buying a Vehicle\nVehicle sales\nConversation(quest)","Confirm", "Cancel");
+    ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,tdstr,"{FFFFFF}Buying a Vehicle\nVehicle sales\nConversation(quest)","Confirm", "Cancel");
   }
 }
 
@@ -568,16 +564,16 @@ stock selectMadi(playerid,listitem){
   }
 }
 
-stock poketmonCare(playerid,str[]){
-  ShowPlayerDialog(playerid, medi_care, DIALOG_STYLE_LIST, "Pokemon Medical",str,"Confirm", "Cancel");
+stock poketmonCare(playerid,tdstr[]){
+  ShowPlayerDialog(playerid, medi_care, DIALOG_STYLE_LIST, "Pokemon Medical",tdstr,"Confirm", "Cancel");
 }
 
-stock poketmonMix(playerid,str[]){
-  ShowPlayerDialog(playerid, medi_mix, DIALOG_STYLE_LIST, "Pokemon Synthesis",str,"Confirm", "Cancel");
+stock poketmonMix(playerid,tdstr[]){
+  ShowPlayerDialog(playerid, medi_mix, DIALOG_STYLE_LIST, "Pokemon Synthesis",tdstr,"Confirm", "Cancel");
 }
 
-stock poketmonSell(playerid,str[]){
-  ShowPlayerDialog(playerid, medi_sell, DIALOG_STYLE_LIST, "Pokemon Sale",str,"Confirm", "Cancel");
+stock poketmonSell(playerid,tdstr[]){
+  ShowPlayerDialog(playerid, medi_sell, DIALOG_STYLE_LIST, "Pokemon Sale",tdstr,"Confirm", "Cancel");
 }
 
 stock poketmonQwest(playerid){
@@ -605,8 +601,7 @@ stock itemShopSell(playerid){
 }
 
 stock itemShopQwest(playerid){
-  ShowPlayerDialog(playerid, item_qwest, DIALOG_STYLE_LIST, "
-Item Quest","There are no quests to suit your experience\n","Confirm", "Cancel");
+  ShowPlayerDialog(playerid, item_qwest, DIALOG_STYLE_LIST, "Item Quest","There are no quests to suit your experience\n","Confirm", "Cancel");
 }
 
 stock selectCarShop(playerid,listitem){
@@ -650,11 +645,11 @@ stock carDialog(playerid,response,listitem){
 }
 
 stock selectCar(playerid,num){
-  new str[60];
+  new tdstr[60];
   IngameDTO[playerid][FORWARD]=num;
   new carNum=CarDTO[playerid][num][MODEL];
-  format(str, sizeof(str),"{8D8DFF}%s (Model: %d)",carName[carNum],carModelNum[carNum]);
-  ShowPlayerDialog(playerid, slot_car, DIALOG_STYLE_LIST, str,"use\nInsert\nInformation","Confirm", "Cancel");
+  format(tdstr, sizeof(tdstr),"{8D8DFF}%s (Model: %d)",carName[carNum],carModelNum[carNum]);
+  ShowPlayerDialog(playerid, slot_car, DIALOG_STYLE_LIST, tdstr,"use\nInsert\nInformation","Confirm", "Cancel");
 }
 
 stock slotEventCar(playerid,response,listitem){
@@ -688,15 +683,15 @@ stock infoCar(playerid,num){
 
 stock selectCarInfo(playerid,num){
   new memo[300]={"{FFFFFF}Vehicle Information : %s(Model : %d)\n\n{8D8DFF}detailed description{FFFFFF}\n\n%s\n\n"};
-  new str[300];
+  new tdstr[300];
   new carNum=CarDTO[playerid][num][MODEL];
 
-  format(str,sizeof(str),memo,
+  format(tdstr,sizeof(tdstr),memo,
   carName[carNum],
   carModelNum[carNum],
   carMemo[carNum]
   );
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",tdstr,"Confirm","");
 }
 
 stock bagDialog(playerid,response,listitem,type){
@@ -714,11 +709,11 @@ stock bagDialog(playerid,response,listitem,type){
 }
 
 stock selectInventory(playerid,num){
-  new str[60];
+  new tdstr[60];
   IngameDTO[playerid][FORWARD]=ItemDTO[playerid][num][TYPE];
   IngameDTO[playerid][ITEAMNUM]=IngameDTO[playerid][FORWARD];
-  format(str, sizeof(str),"{8D8DFF}%s",itemName[IngameDTO[playerid][FORWARD]]);
-  ShowPlayerDialog(playerid, slot_bag, DIALOG_STYLE_LIST, str,"use\nInsert\nInformation","Confirm", "Cancel");
+  format(tdstr, sizeof(tdstr),"{8D8DFF}%s",itemName[IngameDTO[playerid][FORWARD]]);
+  ShowPlayerDialog(playerid, slot_bag, DIALOG_STYLE_LIST, tdstr,"use\nInsert\nInformation","Confirm", "Cancel");
 }
 
 stock slotEventItem(playerid,response,listitem){
@@ -737,9 +732,9 @@ stock takeItem(playerid,num){
       {
       if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		You have already taken out the monster ball.");
       openPoketball(playerid,num);
-      new str[126];
-      format(str, sizeof(str),"		Remove [%s] from your bag.",itemName[num]);
-      SendClientMessage(playerid,col_sys,str);
+      new tdstr[126];
+      format(tdstr, sizeof(tdstr),"		Remove [%s] from your bag.",itemName[num]);
+      SendClientMessage(playerid,col_sys,tdstr);
       }
   }
   return 1;
@@ -764,19 +759,18 @@ stock infoItem(playerid,num){
 
 stock selectItemInfo(playerid,num){
   new memo[300]={"{FFFFFF}Item Information : %s\n\n{8D8DFF}detailed description{FFFFFF}\n\n%s\n\n"};
-  new str[300];
-  format(str,sizeof(str),memo,
+  new tdstr[300];
+  format(tdstr,sizeof(tdstr),memo,
   itemName[num],
   itemMemo[num]
   );
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",tdstr,"Confirm","");
 }
 
 stock selectPoketMon(playerid,num){
-  new memo[300]={"{FFFFFF}Nickname : %s\nPokemon name : %s\nCP Score : %d\n\n{8D8DFF}Battle History{FFFFFF}\nWin : %d\tLoss : %d\n\n{8D8DFF}Status information{FFFFFF}\nHealth : %d\nThirst : %d\nSatiety : %d\nTired : %d\nCleanliness : %d\n
-joy : %d\n\n\n{8D8DFF}Pokemon can be trained on InfoWeb."};
-  new str[300];
-  format(str,sizeof(str),memo,
+  new memo[300]={"{FFFFFF}Nickname : %s\nPokemon name : %s\nCP Score : %d\n\n{8D8DFF}Battle History{FFFFFF}\nWin : %d\tLoss : %d\n\n{8D8DFF}Status information{FFFFFF}\nHealth : %d\nThirst : %d\nSatiety : %d\nTired : %d\nCleanliness : %d\njoy : %d\n\n\n{8D8DFF}Pokemon can be trained on InfoWeb."};
+  new tdstr[300];
+  format(tdstr,sizeof(tdstr),memo,
   PoketmonDTO[playerid][num][MONNAME],
   poketMonName[PoketmonDTO[playerid][num][TYPE]],
   PoketmonDTO[playerid][num][CP],
@@ -789,7 +783,7 @@ joy : %d\n\n\n{8D8DFF}Pokemon can be trained on InfoWeb."};
   PoketmonDTO[playerid][num][CLEAN],
   PoketmonDTO[playerid][num][FUNNY]
   );
-  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",str,"Confirm","");
+  ShowPlayerDialog(playerid,1001,DIALOG_STYLE_MSGBOX,"{8D8DFF}Pokemon Manager",tdstr,"Confirm","");
 }
 
 stock joinDialog(playerid,response,inputtext[],type){
@@ -1046,7 +1040,7 @@ stock inCar(playerid,vehicleid){
 
 stock checkWarp(playerid){
    WarpDTO[playerid][INCAR]=true;
-  
+
    if(!WarpDTO[playerid][CHECK]){
       new carid = GetPlayerVehicleID(playerid);
       if(WarpDTO[playerid][CARID] != carid && carid != 0)Ban(playerid);
@@ -1198,7 +1192,7 @@ stock shotBallInfo(playerid){
 
 public OnPlayerCommandText(playerid, cmdtext[]){
   showAudio(playerid, 1);
-  if (strcmp("/체인지", cmdtext, true, 10) == 0){
+  if (strcmp("/change", cmdtext, true, 10) == 0){
     changePoketball();
     SendClientMessageToAll(col_sys, "Monster Change");
     return 1;
@@ -1223,19 +1217,18 @@ public OnPlayerCommandText(playerid, cmdtext[]){
     ShowPlayerDialog(playerid, poketmon_Bag, DIALOG_STYLE_LIST, "{8D8DFF}Pokemon Manager",sumText,"Confirm", "Cancel");
     return 1;
   }
-  if (strcmp("/bag, cmdtext, true, 10) == 0 || strcmp("/b", cmdtext, true, 10) == 0){
+  if (strcmp("/bag", cmdtext, true, 10) == 0 || strcmp("/b", cmdtext, true, 10) == 0){
 
     new sumText[624];
     format(sumText, sizeof(sumText), "%s",getBagInfo(playerid));
-    ShowPlayerDialog(playerid, player_Bag, DIALOG_STYLE_LIST, "{8D8DFF}가방",sumText,"Confirm", "Exit");
+    ShowPlayerDialog(playerid, player_Bag, DIALOG_STYLE_LIST, "{8D8DFF}Bag",sumText,"Confirm", "Exit");
     return 1;
   }
 
     if (strcmp("/car", cmdtext, true, 10) == 0 || strcmp("/v", cmdtext, true, 10) == 0){
     new sumText[200];
     format(sumText, sizeof(sumText), "%s",getCarInfo(playerid));
-    ShowPlayerDialog(playerid, car_Bag, DIALOG_STYLE_LIST, "{8D8DFF}
-Garage manager",sumText,"Confirm", "Cancel");
+    ShowPlayerDialog(playerid, car_Bag, DIALOG_STYLE_LIST, "{8D8DFF}Garage manager",sumText,"Confirm", "Cancel");
         return 1;
     }
 
