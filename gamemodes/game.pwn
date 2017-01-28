@@ -58,20 +58,20 @@ FUNNY INT(3) NOT NULL
 
 main(){}
 
-#define d_Reg    	 	 1
-#define d_Log    	 	 2
-#define poketmon_Bag 	 3
-#define player_Bag   	 4
-#define slot_bag     	 5
-#define car_Bag      	 6
-#define slot_car     	 7
-#define misson_medi  	 8
+#define d_Reg            1
+#define d_Log            2
+#define poketmon_Bag     3
+#define player_Bag       4
+#define slot_bag         5
+#define car_Bag          6
+#define slot_car         7
+#define misson_medi      8
 #define misson_itemshop  9
 #define misson_carshop   10
 #define medi_care        11
 #define medi_mix         12
 #define medi_sell        13
-#define medi_qwest		 14
+#define medi_qwest		   14
 #define item_buy         15
 #define item_sell        16
 #define item_qwest       17
@@ -399,9 +399,9 @@ new poketMonNameHan[81][20]={
 
 public OnGameModeInit(){
 
-    mode_init();
-    server_init();
-    object_init();
+  mode_init();
+  server_init();
+  object_init();
   gangZone_init();
   textDraw_init();
 
@@ -1529,8 +1529,8 @@ stock deleteDistanceImg(playerid){
 }
 
 stock loadDistanceImg(playerid){
-  IngameDTO[playerid][DISTANCE] = TextDrawCreate(550.6666, 331.9259, "distance: 1340m");
-  TextDrawLetterSize(IngameDTO[playerid][DISTANCE], 0.2843, 1.3657);
+    IngameDTO[playerid][DISTANCE] = TextDrawCreate(550.6666, 331.9259, "distance: 1340m");
+    TextDrawLetterSize(IngameDTO[playerid][DISTANCE], 0.2843, 1.3657);
     TextDrawAlignment(IngameDTO[playerid][DISTANCE], 2);
     TextDrawColor(IngameDTO[playerid][DISTANCE], -1);
     TextDrawSetShadow(IngameDTO[playerid][DISTANCE], 0);
