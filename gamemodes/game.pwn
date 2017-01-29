@@ -602,7 +602,7 @@ stock mediDialog(playerid,response,listitem,type){
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}?¬ì¼“ëª?ì¹˜ë£Œ\n?¬ì¼“ëª??©ì„±\n?¬ì¼“ëª?ë¶„ì–‘\n?€???˜ìŠ¤??","?•ì¸", "ì·¨ì†Œ");
+    ShowPlayerDialog(playerid, misson_medi, DIALOG_STYLE_LIST,str,"{FFFFFF}Æ÷ÄÏ¸ó Ä¡·á\nÆ÷ÄÏ¸ó ÇÕ¼º\nÆ÷ÄÏ¸ó ºĞ¾ç\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
   }
 }
 
@@ -612,7 +612,7 @@ stock itemShopDialog(playerid,response,listitem,type){
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}?„ì´??êµ¬ë§¤\n?„ì´???ë§¤\n?€???˜ìŠ¤??","?•ì¸", "ì·¨ì†Œ");
+    ShowPlayerDialog(playerid, misson_itemshop, DIALOG_STYLE_LIST,str,"{FFFFFF}¾ÆÀÌÅÛ ±¸¸Å\n¾ÆÀÌÅÛ ÆÇ¸Å\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
   }
 }
 
@@ -622,7 +622,7 @@ stock carShopDialog(playerid,response,listitem,type){
   if(response){
     printf("%d %d",listitem,type);
   }else{
-    ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}ì°¨ëŸ‰ êµ¬ë§¤\nì°¨ëŸ‰ ?ë§¤\n?€???˜ìŠ¤??","?•ì¸", "ì·¨ì†Œ");
+    ShowPlayerDialog(playerid, misson_carshop, DIALOG_STYLE_LIST,str,"{FFFFFF}Â÷·® ±¸¸Å\nÂ÷·® ÆÇ¸Å\n´ëÈ­(Äù½ºÆ®)","È®ÀÎ", "Ãë¼Ò");
   }
 }
 
@@ -813,7 +813,7 @@ stock takeItem(playerid,num){
   switch(num){
       case 0..3:
       {
-      if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		?´ë? ëª¬ìŠ¤?°ë³¼??êº¼ë‚´?¨ìŠµ?ˆë‹¤.");
+      if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		ÀÌ¹Ì ¸ó½ºÅÍº¼À» ²¨³»¼Ì½À´Ï´Ù.");
       openPoketball(playerid,num);
       new str[126];
       format(str, sizeof(str),"		°¡¹æ¿¡¼­ %sÀ»(¸¦) ²¨³½´Ù.",itemName[num]);
@@ -827,8 +827,8 @@ stock putItem(playerid,num){
   switch(num){
       case 0..3:
       {
-      if(IngameDTO[playerid][ITEAMNUM] != num) return SendClientMessage(playerid,col_sys,"		ëª¬ìŠ¤?°ë³¼??êº¼ë‚´ì§€ ?Šì•˜?µë‹ˆ??");
-      if(IngameDTO[playerid][ISBALL] == false) return SendClientMessage(playerid,col_sys,"		ëª¬ìŠ¤?°ë³¼??êº¼ë‚´ì§€ ?Šì•˜?µë‹ˆ??");
+      if(IngameDTO[playerid][ITEAMNUM] != num) return SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» ²¨³»Áö ¾Ê¾Ò½À´Ï´Ù.");
+      if(IngameDTO[playerid][ISBALL] == false) return SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» ²¨³»Áö ¾Ê¾Ò½À´Ï´Ù.");
       SendClientMessage(playerid,col_sys,"		¸ó½ºÅÍº¼À» °¡¹æ¿¡ ³Ö´Â´Ù.");
       closePoketBall(playerid);
     }
@@ -1249,7 +1249,7 @@ public shotBallManager(playerid,Float:distance){
 }
 
 stock checkBall(playerid, Float:distance,Float:ballDistance){
-  if(distance > ballDistance) return SendClientMessage(playerid,col_sys,"		ì£¼ë????¬ì¼“ëª¬ì´ ?†ìŠµ?ˆë‹¤.");
+  if(distance > ballDistance) return SendClientMessage(playerid,col_sys,"		ÁÖº¯¿¡ Æ÷ÄÏ¸óÀÌ ¾ø½À´Ï´Ù.");
   new str[50];
   format(str,sizeof(str),"%s is caught!",UserDTO[playerid][NAME]);
   foreach (new i : Player){
@@ -1358,7 +1358,7 @@ stock getBagInfo(playerid){
 }
 
 stock rideCar(playerid,num,model){
-  if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,col_sys,"		?´ë? ì°¨ëŸ‰???‘ìŠ¹ì¤‘ì…?ˆë‹¤.");
+  if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,col_sys,"		ÀÌ¹Ì Â÷·®¿¡ Å¾½ÂÁßÀÔ´Ï´Ù.");
   new Float:pos[4];
   GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
   GetPlayerFacingAngle(playerid, pos[3]);
