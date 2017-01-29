@@ -733,7 +733,7 @@ stock takeItem(playerid,num){
       if(IngameDTO[playerid][ISBALL] == true) return SendClientMessage(playerid,col_sys,"		You have already taken out the monster ball.");
       openPoketball(playerid,num);
       new tdstr[126];
-      format(tdstr, sizeof(tdstr),"		Remove [%s] from your bag.",itemName[num]);
+      format(tdstr, sizeof(tdstr),"		Take [%s] from your bag.",itemName[num]);
       SendClientMessage(playerid,col_sys,tdstr);
       }
   }
@@ -1074,7 +1074,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys){
       }
       ClearAnimations(playerid);
       ApplyAnimation(playerid,"BASEBALL","Bat_IDLE",4.1,0,1,1,1,1);
-      SendClientMessage(playerid,col_sys,"		Aim at the Pokémon.");
+      SendClientMessage(playerid,col_sys,"		Aim at the Pokemon.");
     }
     if(RELEASED(KEY_HANDBRAKE)){
       shotBall(playerid);
@@ -1494,9 +1494,9 @@ stock showBallImg(playerid){
 }
 
 stock loadMisson(){
-  missonInit("포켓몬 센터",1910.2273,-1714.3197,13.3307);
-  missonInit("아이템 상점",1909.9907,-1707.3611,13.3251);
-  missonInit("차량 판매점",1909.9747,-1700.0070,13.3236);
+  missonInit("Pokemon Center",1910.2273,-1714.3197,13.3307);
+  missonInit("Item Shop",1909.9907,-1707.3611,13.3251);
+  missonInit("Vehicle Shop",1909.9747,-1700.0070,13.3236);
 }
 
 stock missonInit(name[24],Float:pos_x,Float:pos_y,Float:pos_z){
