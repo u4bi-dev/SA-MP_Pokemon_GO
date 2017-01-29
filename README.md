@@ -1,4 +1,32 @@
-## SA:MP Pokemon GO Los Santos
+# SA:MP Pokemon GO Los Santos
+
+## How to start a server?
+
+##### 1. scriptfiles/database.cfg [new file]
+    hostname=localhost
+    username=
+    database=
+    password=
+
+##### 2. Generates a response to the sql file.
+
+## Credits
+>#### _cv47necop aka HI0000000000 aka u4bi_
+
+## Requirements
+- a_samp
+- MySQL/R39-4
+- foreach v1.1
+- physics.inc
+- audio.inc
+
+
+### English Version Branch:
+>https://github.com/u4bi/SA-MP_Pokemon_GO/tree/eng.ver
+
+
+**Download korea ver:**
+>https://github.com/u4bi/SA-MP_Pokemon_GO/tree/master
 
 ![Alt text](http://drive.google.com/uc?export=view&id=0B3XkfYbZArSfc09wY3JtaUtwQmM)
 ![Alt text](http://drive.google.com/uc?export=view&id=0B3XkfYbZArSfaEhtMkplQWh5R0U)
